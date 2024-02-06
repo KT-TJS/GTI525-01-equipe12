@@ -3,20 +3,41 @@
 <head>
     <meta charset="UTF-8">
     <title>Index</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cousine:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="ressources/normalize.css">
     <link rel="stylesheet" href="ressources/main.css">
+    <script src="ressources/main.js"></script>
 </head>
 <body>
 
 <header>
 
-    <img src="" alt="Logo">
+    <img src="ressources/image/Logo.png" alt="Logo" class="MainLogo"/>
     <img src="" alt="Message d'accueil">
 
 </header>
-<div class="contentHolder">
 
-    <ul class="stationList"></ul>
+<div class="contentHolder">
+    <ul class="stationList">
+        <!--Je met ici un template de comment la liste des stations doit être affichée.-->
+        <li class="open">
+            <span>Province 1</span>
+            <ul class="stationSubList">
+                <li>Station 1</li>
+                <li>Station 2</li>
+            </ul>
+        </li>
+        <li class="active">
+            <span>Province 2</span>
+            <ul class="stationSubList">
+                <li class="active">Station 3</li>
+                <li>Station 4</li>
+            </ul>
+        </li>
+
+    </ul>
     <section class="specifications">
         <div class="stationInfoSection">
             <span class="stationInfoTitle">Edmonton</span>
@@ -52,7 +73,6 @@
                         <th>Neige Totale</th>
                         <th>Vitesse du vent maximale</th>
                     </tr>
-
                 </table>
             </div>
         </div>

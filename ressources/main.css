@@ -1,76 +1,163 @@
-*{
+* {
     box-sizing: border-box;
 }
 
-body,html{
+body, html {
 
-    margin:0;
+    margin: 0;
     min-height: 100vh
 }
 
-ul{
+ul {
     padding: 0;
-    margin:0;
+    margin: 0;
+    list-style-type: none;
 }
 
+h4 {
+
+    font-size: 1.5rem;
+
+}
+
+/*Header*/
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+header, footer {
+    padding: 20px 40px;
+    background-color: #348AA7;
+
+}
 
 /*Liste Stations*/
 
-.stationList .active{
-    transition:color;
+
+
+.stationList > li {
+
+    padding: 10px 20px;
 
 }
 
-#StationDateSelectionForm{
+.stationList .active {
+    transition: color 700ms;
+}
 
-    display:grid;
+.stationSubList > li {
+
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    background-color: white;
+    color: #61E786;
+    border: 3px solid #61E786;
+
+    font-family: 'Cousine', monospace;
+    font-weight: bold;
+}
+
+.stationSubList > li:nth-child(n+2) {
+    margin-top: 10px;
+}
+
+.stationSubList > li.active {
+    background-color: #61E786;
+    color: white;
+    border: none;
+}
+
+.stationSubList{
+
+    transition:height 700ms;
+
+}
+
+.stationList > li.active .stationSubList,.stationList > li.open .stationSubList{
+   height:auto;
+
+}
+
+.stationList > li:not(.active,.open) .stationSubList {
+    overflow: hidden;
+    height: 0;
+    transition: height 700ms;
+}
+
+/*Form*/
+
+#StationDateSelectionForm {
+
+    display: grid;
     grid-template-columns: 1fr 3fr 3fr;
     grid-template-rows: 1fr 1fr;
     grid-row-gap: 15px;
     grid-column-gap: 20px;
 }
 
-.contentHolder{
+.specifications {
 
-    display: grid;
-    grid-template-columns: auto 1100px;
+    margin-top: 20px;
 
 }
-.stationInfoTitle{
+
+.contentHolder {
+
+    display: grid;
+    margin: 0 30px;
+    grid-template-columns: auto 1100px;
+    grid-column-gap: 15px;
+
+}
+
+.stationInfoTitle {
     display: block;
 
 }
-.stationDataNavButton{
 
-    height:30px;
-    width: 80px;
+.stationDataNav {
+
+    margin: 20px 0;
+
+}
+
+.stationDataNavButton {
+
+    padding: 10px 20px;
+    font-size: 1rem;
 
 }
 
 /*Section Données météo*/
 
-.meteoData{
+.meteoData {
 
     overflow: scroll;
     max-width: 1100px;
 
 }
 
-.meteoData th{
-    border:2px solid;
+.meteoData th {
+    border: 2px solid;
     white-space: nowrap;
-    padding:5px 2px;
+    padding: 5px 2px;
 }
+
 /*Bas de page*/
 
-footer{
-    position:relative;
-    bottom:0;
-    left:0;
+footer {
+    position: absolute;
+    bottom: 0;
+    left: 0;
     display: flex;
     width: 100vw;
     justify-content: center;
     align-items: center;
-    padding:20px 30px;
-
+    padding: 20px 30px;
 }
