@@ -5,7 +5,8 @@
     <title>Index</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cousine:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cousine:ital,wght@0,400;0,700;1,400;1,700&display=swap"
+          rel="stylesheet">
     <link rel="stylesheet" href="ressources/normalize.css">
     <link rel="stylesheet" href="ressources/main.css">
     <script src="ressources/main.js"></script>
@@ -14,15 +15,18 @@
 
 <header>
 
-    <img src="ressources/image/Logo.png" alt="Logo" class="MainLogo"/>
-    <img src="" alt="Message d'accueil">
+    <img src="ressources/image/Logo.png" alt="Logo" id="MainLogo"/>
+    <img src="ressources/image/Message de bienvenu.png" alt="Message d'accueil">
 
 </header>
 
 <div class="contentHolder">
     <ul class="stationList">
         <!--Je met ici un template de comment la liste des stations doit être affichée.-->
-        <li class="open">
+        <li id="AllStations">
+            <span>Toutes les stations</span>
+        </li>
+        <li class="">
             <span>Province 1</span>
             <ul class="stationSubList">
                 <li>Station 1</li>
@@ -51,35 +55,77 @@
                 <select name="stationEndTimeYear" id="stationEndTimeYear"></select>
                 <select name="stationEndTimeMonth" id="stationEndTimeMonth">
                 </select>
+                <button class="allData">Toutes les données</button>
             </form>
         </div>
         <div class="stationDataNav">
-            <button class="dataButton stationDataNavButton">Données</button>
-            <button class="statsButton stationDataNavButton">Statistiques</button>
+            <button class="stationDataNavButton" data-type-view="Data">Données</button>
+            <button class="stationDataNavButton" data-type-view="Stats">Statistiques</button>
         </div>
-        <div class="infoHolder">
-            <h4>Données météo</h4>
-            <div class="meteoData">
-                <table>
-                    <tr>
-                        <th>Année</th>
-                        <th>Mois</th>
-                        <th>Température maximale moyenne</th>
-                        <th>Température minimale moyenne</th>
-                        <th>Température moyenne</th>
-                        <th>Température maximale enregistrée</th>
-                        <th>Température minimale enregistrée</th>
-                        <th>Pluie totale</th>
-                        <th>Neige Totale</th>
-                        <th>Vitesse du vent maximale</th>
-                    </tr>
-                </table>
+        <div class="infoHolder" data-type-area="Data">
+            <div class="infoView" id="DataView">
+                <h4>Données météo</h4>
+                <div class="meteoData">
+                    <table>
+                        <tr>
+                            <th>Année</th>
+                            <th>Mois</th>
+                            <th>Température maximale moyenne</th>
+                            <th>Température minimale moyenne</th>
+                            <th>Température moyenne</th>
+                            <th>Température maximale enregistrée</th>
+                            <th>Température minimale enregistrée</th>
+                            <th>Pluie totale</th>
+                            <th>Neige Totale</th>
+                            <th>Vitesse du vent maximale</th>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            <div class="infoView" id="StatsView">
+                <h4>Statistiques globales</h4>
+                <div class="meteoData">
+                    <table>
+                        <tr>
+                            <th>Donnée</th>
+                            <th>Valeur maximale</th>
+                            <th>Année</th>
+                            <th>Mois</th>
+                            <th>Valeur minimale</th>
+                            <th>Année</th>
+                            <th>Mois</th>
+                        </tr>
+                    </table>
+                </div>
+                <h4>Statistiques par mois</h4>
+                <h5>Mois</h5>
+                <div class="meteoData">
+                    <table>
+                        <tr>
+                            <th>Donnée</th>
+                            <th>Valeur maximale</th>
+                            <th>Année</th>
+
+                            <th>Valeur minimale</th>
+                            <th>Année</th>
+
+                        </tr>
+                    </table>
+                </div>
             </div>
         </div>
     </section>
 </div>
 <footer>
-    <small>Vos coordonnées</small>
+    <ul>
+        <li>Équipe 12</li>
+        <li><small>Kevin Trépanier : kevin.trepanier.1@ens.etsmtl.ca</small></li>
+        <li><small>Kevin Trépanier : kevin.trepanier.1@ens.etsmtl.ca</small></li>
+        <li><small>Kevin Trépanier : kevin.trepanier.1@ens.etsmtl.ca</small></li>
+        <li><small>Kevin Trépanier : kevin.trepanier.1@ens.etsmtl.ca</small></li>
+
+    </ul>
+
 </footer>
 </body>
 </html>

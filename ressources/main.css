@@ -1,5 +1,6 @@
 * {
     box-sizing: border-box;
+    font-family: 'Cousine', monospace;
 }
 
 body, html {
@@ -36,16 +37,33 @@ header, footer {
 
 /*Liste Stations*/
 
-
-
 .stationList > li {
 
-    padding: 10px 20px;
+    transition: all 700ms ease-in-out;
 
 }
 
-.stationList .active {
-    transition: color 700ms;
+.stationList > li span {
+
+    cursor: pointer;
+    height: 50px;
+    display: flex;
+    font-weight: bold;
+    align-items: center;
+    justify-content: center;
+
+}
+
+.stationList > li.active {
+
+    background-color: #61E786;
+    color: white;
+
+}
+
+.stationList > li.active span {
+    text-decoration: underline 3px white;
+
 }
 
 .stationSubList > li {
@@ -61,6 +79,8 @@ header, footer {
 
     font-family: 'Cousine', monospace;
     font-weight: bold;
+    cursor: pointer;
+    transition: text-decoration-color 300ms, background-color 500ms, color 500ms;
 }
 
 .stationSubList > li:nth-child(n+2) {
@@ -73,21 +93,30 @@ header, footer {
     border: none;
 }
 
-.stationSubList{
-
-    transition:height 700ms;
-
-}
-
-.stationList > li.active .stationSubList,.stationList > li.open .stationSubList{
-   height:auto;
+.stationSubList > li:not(.active) {
+    text-decoration: underline 3px white;
 
 }
 
-.stationList > li:not(.active,.open) .stationSubList {
+.stationSubList > li:not(.active):hover {
+    text-decoration: underline 3px #61E786;
+
+}
+
+.stationSubList {
+
+    transition: all 700ms ease-in-out;
+
+}
+
+.stationList > li.active .stationSubList {
+    max-height: 1000px;
+}
+
+.stationList > li:not(.active) .stationSubList {
     overflow: hidden;
-    height: 0;
-    transition: height 700ms;
+    max-height: 0;
+
 }
 
 /*Form*/
@@ -95,10 +124,17 @@ header, footer {
 #StationDateSelectionForm {
 
     display: grid;
-    grid-template-columns: 1fr 3fr 3fr;
+    grid-template-columns: 1fr 3fr 3fr 1fr;
     grid-template-rows: 1fr 1fr;
     grid-row-gap: 15px;
     grid-column-gap: 20px;
+}
+
+#StationDateSelectionForm .allData {
+
+    grid-column: 4/4;
+    grid-row: 1/ span 2;
+
 }
 
 .specifications {
@@ -110,7 +146,6 @@ header, footer {
 .contentHolder {
 
     display: grid;
-    margin: 0 30px;
     grid-template-columns: auto 1100px;
     grid-column-gap: 15px;
 
@@ -149,6 +184,12 @@ header, footer {
     padding: 5px 2px;
 }
 
+.infoHolder[data-type-area="Data"] #StatsView, .infoHolder[data-type-area="Stats"] #DataView {
+
+    display: none;
+
+}
+
 /*Bas de page*/
 
 footer {
@@ -160,4 +201,29 @@ footer {
     justify-content: center;
     align-items: center;
     padding: 20px 30px;
+}
+
+footer ul {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    padding: 0;
+
+}
+
+/*Secret*/
+
+@keyframes Secret {
+    0%{filter: hue-rotate(0)}
+    33%{filter: hue-rotate(120deg)}
+    67%{filter: hue-rotate(240deg)}
+    100%{filter: hue-rotate(360deg)}
+}
+
+#MainLogo:hover{
+    animation-name:Secret;
+    animation-duration: 1000ms;
+    animation-iteration-count: infinite;
+
 }
