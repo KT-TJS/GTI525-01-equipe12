@@ -92,7 +92,7 @@ function initializeStationList() {
             stationLi.textContent = dataStr;
             stationLi.addEventListener('click',  function(event) {
                 event.stopPropagation();
-                loadStationDetails(station.id,dataStr); // Need to implement this function to work with the data and stats select
+                loadStationDetails(station.id,dataStr); // Need to implement this function to work with the data and stats select !!!!!!!!!!!!!!!!!!
             });
             // Add station to both the province sublist and the All Stations sublist
             const clone = stationLi.cloneNode(true);
@@ -105,7 +105,7 @@ function initializeStationList() {
     });
 }
 
-//USES GLOBAL STATIONS
+//USES GLOBAL STATIONS, add imtemediary function for stats or data. !!!!!!!!!!!!!!!!!!
 function loadStationDetails(stationId,name) {
     console.log('Station ID clicked:', stationId);
     populateMeteoDataTable(stations[stationId]);
@@ -174,12 +174,20 @@ function initPlageDate(dataList){
     });
     endYear.selectedIndex = endYear.options.length -1;
     endMonth.selectedIndex = endMonth.options.length -1;
-    fromYear.addEventListener('change', function(){populateMeteoDataTable(dataList)});
-    fromMonth.addEventListener('change', function(){populateMeteoDataTable(dataList)});
-    endYear.addEventListener('change', function(){populateMeteoDataTable(dataList)});
-    endMonth.addEventListener('change', function(){populateMeteoDataTable(dataList)});
+    //Onclick events for when date is changed// integrade some logic for stats
+    fromYear.addEventListener('change', function(){intermediaryFunction(dataList)});
+    fromMonth.addEventListener('change', function(){intermediaryFunction(dataList)});
+    endYear.addEventListener('change', function(){intermediaryFunction(dataList)});
+    endMonth.addEventListener('change', function(){intermediaryFunction(dataList)});
+
+    function intermediaryFunction(dataList){//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+        //add logic here
+        populateMeteoDataTable(dataList);
+        //add your trigger function
+    }
     
 }
+//DataList is the provided MeteoStation from the click event found in the loadStationDetails
 function populateMeteoDataTable(dataList) {
     // Extracting the names of the first row that contains the CSV associated elements
     const fieldNames = dataList[0];
@@ -192,6 +200,7 @@ function populateMeteoDataTable(dataList) {
             tableBody.deleteRow(i);
         }
     }
+    //Logic for time check 
     const fromYear = document.querySelector('#stationStartTimeYear');
     const fromMonth = document.querySelector('#stationStartTimeMonth');
     const endYear = document.querySelector('#stationEndTimeYear');
@@ -206,7 +215,7 @@ function populateMeteoDataTable(dataList) {
         const month = parseInt(insertData('"Month"'));
         const date = new Date(year,month-1);
         console.log(((date-dateStart)>=0&&(dateEnd-date>=0)));
-        if(((date-dateStart)>=0&&(dateEnd-date>=0))||insertData('"Year"')=='Year'){
+        if(((date-dateStart)>=0&&(dateEnd-date>=0))||insertData('"Year"')=='Year'){ //Logic for time check end
             const row = tableBody.insertRow();
             const yearCell = row.insertCell(); yearCell.textContent = insertData('"Year"');
             const monthCell = row.insertCell();monthCell.textContent = insertData('"Month"');
