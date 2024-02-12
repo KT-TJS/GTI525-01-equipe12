@@ -30,6 +30,10 @@ function processStations(stationsObject, stationInventoryArray) {
         });
     });
     console.log(structuredData);
+    temp = [];
+    temp.push(stations[stationIds[0]][0]);
+    populateMeteoDataTable(temp);
+
 }
 
 processStations(stations,stationInventoryArray);
@@ -84,10 +88,11 @@ function initializeStationList() {
         // Iterate over each station in the province
         stations.forEach(station => {
             const stationLi = document.createElement('li');
-            stationLi.textContent = `${station.name} (Code: ${station.code}, ID: ${station.id})`;
+            const dataStr = `${station.name} - (${station.code})`
+            stationLi.textContent = dataStr;
             stationLi.addEventListener('click',  function(event) {
                 event.stopPropagation();
-                loadStationDetails(station.id,station.name); // Need to implement this function to work with the data and stats select
+                loadStationDetails(station.id,dataStr); // Need to implement this function to work with the data and stats select
             });
             // Add station to both the province sublist and the All Stations sublist
             const clone = stationLi.cloneNode(true);
@@ -115,8 +120,6 @@ function initPlageDate(dataList){
     const dataObjects = dataList.slice(1);
     const yearLi = [];
     const monthLi = [];
-    
-
     dataObjects.forEach(dataObject => {
         const year = insertData('"Year"');
         const month = insertData('"Month"');
@@ -133,13 +136,23 @@ function initPlageDate(dataList){
             monthLi.push(month.toString());
         }
     });
-    console.log(yearLi);
-    console.log(monthLi);
     const fromYear = document.querySelector('#stationStartTimeYear');
     const fromMonth = document.querySelector('#stationStartTimeMonth');
     const endYear = document.querySelector('#stationEndTimeYear');
     const endMonth = document.querySelector('#stationEndTimeMonth');
 
+    while (fromYear.firstChild) {
+        fromYear.removeChild(fromYear.firstChild);
+    }
+    while (fromMonth.firstChild) {
+        fromMonth.removeChild(fromMonth.firstChild);
+    }
+    while (endYear.firstChild) {
+        endYear.removeChild(endYear.firstChild);
+    }
+    while (endMonth.firstChild) {
+        endMonth.removeChild(endMonth.firstChild);
+    }
     yearLi.forEach(year =>{
         const newOption = document.createElement('option');
         newOption.textContent = year;
@@ -159,6 +172,12 @@ function initPlageDate(dataList){
         fromMonth.appendChild(newOption);
         endMonth.appendChild(clone);
     });
+    endYear.selectedIndex = endYear.options.length -1;
+    endMonth.selectedIndex = endMonth.options.length -1;
+    fromYear.addEventListener('change', function(){populateMeteoDataTable(dataList)});
+    fromMonth.addEventListener('change', function(){populateMeteoDataTable(dataList)});
+    endYear.addEventListener('change', function(){populateMeteoDataTable(dataList)});
+    endMonth.addEventListener('change', function(){populateMeteoDataTable(dataList)});
     
 }
 function populateMeteoDataTable(dataList) {
@@ -169,26 +188,37 @@ function populateMeteoDataTable(dataList) {
     // Clears all the table except for the first table row which contains the names
     const tableBody = document.querySelector('.meteoData table tbody');
     if (tableBody && tableBody.rows.length > 0) {
-        for (let i = tableBody.rows.length - 1; i >= 0; i--) {
+        for (let i = tableBody.rows.length - 1; i >= 1; i--) {
             tableBody.deleteRow(i);
         }
     }
+    const fromYear = document.querySelector('#stationStartTimeYear');
+    const fromMonth = document.querySelector('#stationStartTimeMonth');
+    const endYear = document.querySelector('#stationEndTimeYear');
+    const endMonth = document.querySelector('#stationEndTimeMonth');
+    const dateStart = new Date(fromYear.value,fromMonth.value-1);
+    const dateEnd = new Date(endYear.value,endMonth.value-1);
     // Iterate over the data objects to create table rows
+    console.log(dataObjects);
     dataObjects.forEach(dataObject => {
-        console.log(dataObject[fieldNames.indexOf('"Year"')]);
         // Create a new row
-        const row = tableBody.insertRow();
-
-        const yearCell = row.insertCell(); yearCell.textContent = insertData('"Year"');
-        const monthCell = row.insertCell();monthCell.textContent = insertData('"Month"');
-        const meanMaxTempCell = row.insertCell(); meanMaxTempCell.textContent = insertData('"Mean Max Temp (°C)"');
-        const meanMinTempCell = row.insertCell(); meanMinTempCell.textContent = insertData('"Mean Min Temp (°C)"');
-        const meanTempCell = row.insertCell(); meanTempCell.textContent = insertData('"Mean Temp (°C)"');
-        const extrMaxTempCell = row.insertCell(); extrMaxTempCell.textContent = insertData('"Extr Max Temp (°C)"');
-        const extrMinTempCell = row.insertCell(); extrMinTempCell.textContent = insertData('"Extr Min Temp (°C)"');
-        const totalRainCell = row.insertCell(); totalRainCell.textContent = insertData('"Total Rain (mm)"');
-        const totalSnowCell = row.insertCell(); totalSnowCell.textContent = insertData('"Total Snow (cm)"');
-        const maxWindSpeedCell = row.insertCell(); maxWindSpeedCell.textContent = insertData('"Spd of Max Gust (km/h)"');
+        const year = parseInt(insertData('"Year"'));
+        const month = parseInt(insertData('"Month"'));
+        const date = new Date(year,month-1);
+        console.log(((date-dateStart)>=0&&(dateEnd-date>=0)));
+        if(((date-dateStart)>=0&&(dateEnd-date>=0))||insertData('"Year"')=='Year'){
+            const row = tableBody.insertRow();
+            const yearCell = row.insertCell(); yearCell.textContent = insertData('"Year"');
+            const monthCell = row.insertCell();monthCell.textContent = insertData('"Month"');
+            const meanMaxTempCell = row.insertCell(); meanMaxTempCell.textContent = insertData('"Mean Max Temp (°C)"');
+            const meanMinTempCell = row.insertCell(); meanMinTempCell.textContent = insertData('"Mean Min Temp (°C)"');
+            const meanTempCell = row.insertCell(); meanTempCell.textContent = insertData('"Mean Temp (°C)"');
+            const extrMaxTempCell = row.insertCell(); extrMaxTempCell.textContent = insertData('"Extr Max Temp (°C)"');
+            const extrMinTempCell = row.insertCell(); extrMinTempCell.textContent = insertData('"Extr Min Temp (°C)"');
+            const totalRainCell = row.insertCell(); totalRainCell.textContent = insertData('"Total Rain (mm)"');
+            const totalSnowCell = row.insertCell(); totalSnowCell.textContent = insertData('"Total Snow (cm)"');
+            const maxWindSpeedCell = row.insertCell(); maxWindSpeedCell.textContent = insertData('"Spd of Max Gust (km/h)"');
+        }
 
         function insertData(name){
             if (dataObject[fieldNames.indexOf(name)].replace(/"/g, '')== '') return '-';
