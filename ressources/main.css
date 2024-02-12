@@ -37,6 +37,26 @@ header, footer {
 
 /*Liste Stations*/
 
+.stationList{
+
+    max-height: calc(100vh - 141px - 130px);
+    overflow: auto;
+
+}
+
+.stationList::-webkit-scrollbar{
+    background-color: #ffffff00;
+}
+.stationList::-webkit-scrollbar-track{
+
+}
+
+.stationList::-webkit-scrollbar-thumb{
+    background-color: #61E786;
+    border-radius: 20px;
+    border: 2px solid #61E78600;
+}
+
 .stationList > li {
 
     transition: all 700ms ease-in-out;
@@ -109,11 +129,11 @@ header, footer {
 
 }
 
-.stationList > li.active .stationSubList {
+.stationList > li.active:not(.close) .stationSubList {
     max-height: 1000px;
 }
 
-.stationList > li:not(.active) .stationSubList {
+.stationList > li:not(.active) .stationSubList,.stationList > li.active.close .stationSubList {
     overflow: hidden;
     max-height: 0;
 
@@ -148,6 +168,7 @@ header, footer {
     display: grid;
     grid-template-columns: auto 1100px;
     grid-column-gap: 15px;
+    max-height: calc(100vh - 141px - 130px);
 
 }
 
@@ -182,6 +203,13 @@ header, footer {
     border: 2px solid;
     white-space: nowrap;
     padding: 5px 2px;
+    position:sticky;
+    top:0;
+    background-color: white;
+}
+.infoHolder table tbody tr:nth-child(2n){
+    background-color: #72727272;
+
 }
 
 .infoHolder[data-type-area="Data"] #StatsView, .infoHolder[data-type-area="Stats"] #DataView {
@@ -193,7 +221,7 @@ header, footer {
 /*Bas de page*/
 
 footer {
-    position: absolute;
+    position: fixed;
     bottom: 0;
     left: 0;
     display: flex;

@@ -31,7 +31,7 @@ function processStations(stationsObject, stationInventoryArray) {
     });
     temp = [];
     temp.push(stations[stationIds[0]][0]);
-    populateMeteoDataTable(temp);
+    populateMeteoDataTable(temp,true);
 
 }
 function initializeStationList() {
@@ -102,7 +102,6 @@ function initializeStationList() {
 
 //USES GLOBAL STATIONS, add imtemediary function for stats or data. !!!!!!!!!!!!!!!!!!
 function loadStationDetails(stationId,name) {
-    console.log('Station ID clicked:', stationId);
     initPlageDate(stations[stationId]);
     intermediaryFunction(stations[stationId]);
     const infoTitle = document.querySelector('.stationInfoTitle');
@@ -184,15 +183,17 @@ function intermediaryFunction(dataList){//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     //add your trigger function
 }
 //DataList is the provided MeteoStation from the click event found in the loadStationDetails
-function populateMeteoDataTable(dataList) {
+function populateMeteoDataTable(dataList,isCreation=false) {
     // Extracting the names of the first row that contains the CSV associated elements
     const fieldNames = dataList[0];
     const dataObjects = dataList.slice(0);
 
     // Clears all the table except for the first table row which contains the names
-    const tableBody = document.querySelector('.meteoData table tbody');
+    let tableBody = document.querySelector('.meteoData table');
+    if(!isCreation){
+        tableBody=document.querySelector('.meteoData table tbody');
     if (tableBody && tableBody.rows.length > 0) {
-        for (let i = tableBody.rows.length - 1; i >= 1; i--) {
+        for (let i = tableBody.rows.length - 1; i >= 0; i--) {
             tableBody.deleteRow(i);
         }
     }
@@ -209,8 +210,8 @@ function populateMeteoDataTable(dataList) {
         const year = parseInt(insertData('"Year"'));
         const month = parseInt(insertData('"Month"'));
         const date = new Date(year,month-1);
-        console.log(((date-dateStart)>=0&&(dateEnd-date>=0)));
-        if(((date-dateStart)>=0&&(dateEnd-date>=0))||insertData('"Year"')=='Year'){ //Logic for time check end
+
+        if(((date-dateStart)>=0&&(dateEnd-date>=0))){ //Logic for time check end
             const row = tableBody.insertRow();
             const yearCell = row.insertCell(); yearCell.textContent = insertData('"Year"');
             const monthCell = row.insertCell();monthCell.textContent = insertData('"Month"');
@@ -228,5 +229,45 @@ function populateMeteoDataTable(dataList) {
             if (dataObject[fieldNames.indexOf(name)].replace(/"/g, '')== '') return '-';
             return dataObject[fieldNames.indexOf(name)].replace(/"/g, '');
         }
-    });
+    });}
+    else{
+        let table=document.querySelector(".meteoData table");
+        table.createTHead();
+        table.createTBody();
+        let tableHead=table.querySelector("thead");
+        let temp=document.createElement("th");
+        dataObjects.forEach(dataObject => {
+
+            // Create a new row
+            let row = tableHead.insertRow();
+            let temp=document.createElement("th");
+            let yearCell = row.appendChild(temp); yearCell.textContent = insertData('"Year"');
+            temp=document.createElement("th");
+            let monthCell = row.appendChild(temp);monthCell.textContent = insertData('"Month"');
+            temp=document.createElement("th");
+            let meanMaxTempCell = row.appendChild(temp); meanMaxTempCell.textContent = insertData('"Mean Max Temp (°C)"');
+            temp=document.createElement("th");
+            let meanMinTempCell = row.appendChild(temp); meanMinTempCell.textContent = insertData('"Mean Min Temp (°C)"');
+            temp=document.createElement("th");
+            let meanTempCell = row.appendChild(temp); meanTempCell.textContent = insertData('"Mean Temp (°C)"');
+            temp=document.createElement("th");
+            let extrMaxTempCell = row.appendChild(temp); extrMaxTempCell.textContent = insertData('"Extr Max Temp (°C)"');
+            temp=document.createElement("th");
+            let extrMinTempCell = row.appendChild(temp); extrMinTempCell.textContent = insertData('"Extr Min Temp (°C)"');
+            temp=document.createElement("th");
+            let totalRainCell = row.appendChild(temp); totalRainCell.textContent = insertData('"Total Rain (mm)"');
+            temp=document.createElement("th");
+            let totalSnowCell = row.appendChild(temp); totalSnowCell.textContent = insertData('"Total Snow (cm)"');
+            temp=document.createElement("th");
+            let maxWindSpeedCell = row.appendChild(temp); maxWindSpeedCell.textContent = insertData('"Spd of Max Gust (km/h)"');
+
+
+            function insertData(name){
+                if (dataObject[fieldNames.indexOf(name)].replace(/"/g, '')== '') return '-';
+                return dataObject[fieldNames.indexOf(name)].replace(/"/g, '');
+            }
+
+        });
+
+    }
 }
