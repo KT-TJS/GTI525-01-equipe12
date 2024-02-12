@@ -13,7 +13,6 @@ document.addEventListener("DOMContentLoaded", function () {
     for (let i = 0; i < stationsList.length; i++) {
 
         stationsList[i].querySelector("span").addEventListener("click", function (e) {
-            console.log(e);
             if(e.target.parentElement.classList.contains("active")&&e.target.parentElement===stationsList[i]){
                 stationsList[i].classList.toggle("close");
 
