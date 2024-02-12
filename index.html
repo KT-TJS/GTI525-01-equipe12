@@ -23,7 +23,7 @@
 <div class="contentHolder">
     <ul class="stationList">
         <!--Je met ici un template de comment la liste des stations doit être affichée.-->
-        <li id="AllStations">
+        <!-- <li id="AllStations">
             <span>Toutes les stations</span>
         </li>
         <li class="">
@@ -39,12 +39,12 @@
                 <li class="active">Station 3</li>
                 <li>Station 4</li>
             </ul>
-        </li>
+        </li> -->
 
     </ul>
     <section class="specifications">
         <div class="stationInfoSection">
-            <span class="stationInfoTitle">Edmonton</span>
+            <span class="stationInfoTitle"></span>
             <h4>Plage de dates</h4>
             <form action="#" id="StationDateSelectionForm">
                 <span>De:</span>
@@ -121,8 +121,8 @@
         <li>Équipe 12</li>
         <li><small>Kevin Trépanier : kevin.trepanier.1@ens.etsmtl.ca</small></li>
         <li><small>Charles Simon : charles.simon.1@ens.etsmtl.ca</small></li>
-        <li><small>Kevin Trépanier : kevin.trepanier.1@ens.etsmtl.ca</small></li>
-        <li><small>Kevin Trépanier : kevin.trepanier.1@ens.etsmtl.ca</small></li>
+        <li><small>Roman Ouellet-Arijon : roman.ouellet-arijon.1@ens.etsmtl.ca</small></li>
+        <li><small>Bougaïeff-Emmanuel Alcéus : Bougaieff-Emmanuel.alceus.1@ens.etsmtl.ca</small></li>
 
     </ul>
 
@@ -150,26 +150,28 @@
   <script src="Lab1_CSV/6358.csv.js"></script>
   <script src="Lab1_CSV/6633.csv.js"></script>
   <script src="Lab1_CSV/6720.csv.js"></script>
-
+  
   <script type="text/javascript">
-    //Setup de la variable du fichier avec toutes les stations "Station Inventory EN.csv.js"
-    var stationInventoryArray = StationInventoryEN.split('\n').map(row => row.split(',')).slice(4);
-    stationInventoryArray.pop();
-
-    //Setup pour tous les différentes stations en une variable contenant les différentes stations
-    for (var key in stations) {
-      if (stations.hasOwnProperty(key)) {
-        stations[key] = stations[key].split('\n').map(row => row.split(',')).slice(1);
-        stations[key].pop();
-      }
-    }
-
-    //Regarder le résultat de ceci dans un navigateur pour voir le layout.
-    console.log(stationInventoryArray);
-    console.log(stations);
-
-    //Les variables qui sont misent global pour les utiliser dans d'autres fichier javasccript
-    window.stationInventoryArray = stationInventoryArray;
-    window.stations = stations;
-  </script>
+      //Setup de la variable du fichier avec toutes les stations "Station Inventory EN.csv.js"
+      var stationInventoryArray = StationInventoryEN.split('\n').map(row => row.split(',')).slice(4);
+      stationInventoryArray.pop();
+      
+      //Setup pour tous les différentes stations en une variable contenant les différentes stations
+      for (var key in stations) {
+          if (stations.hasOwnProperty(key)) {
+              stations[key] = stations[key].split('\n').map(row => row.split(',')).slice(1);
+              stations[key].pop();
+            }
+        }
+    
+        //Regarder le résultat de ceci dans un navigateur pour voir le layout.
+        console.log(stationInventoryArray);
+        console.log(stations);
+        
+        //Les variables qui sont misent global pour les utiliser dans d'autres fichier javasccript
+        window.stationInventoryArray = stationInventoryArray;
+        window.stations = stations;
+    </script>
+    <script src="ressources/init.js"></script>
+    <script src="ressources/onclickEvents.js"></script>
 </html>

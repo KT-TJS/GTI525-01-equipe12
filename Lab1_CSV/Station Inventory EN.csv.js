@@ -1,4 +1,4 @@
-﻿var StationInventoryEN = `
+﻿﻿var StationInventoryEN = `
 Modified Date: 2020-05-05 23:30 UTC
 "Station Inventory Disclaimer: Please note that this inventory list is a snapshot of stations on our website as of the modified date, and may be subject to change without notice."
 "Station ID Disclaimer: Station IDs are an internal index numbering system and may be subject to change without notice."
