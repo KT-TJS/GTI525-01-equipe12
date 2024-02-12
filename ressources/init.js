@@ -1,4 +1,6 @@
 const structuredData = {};
+processStations(stations,stationInventoryArray);
+initializeStationList();
 function processStations(stationsObject, stationInventoryArray) {
     const stationIds = Object.keys(stationsObject);
     // Iterate through each station ID
@@ -35,10 +37,6 @@ function processStations(stationsObject, stationInventoryArray) {
     populateMeteoDataTable(temp);
 
 }
-
-processStations(stations,stationInventoryArray);
-initializeStationList();
-
 function initializeStationList() {
     const stationList = document.querySelector('.stationList');
 
@@ -108,10 +106,10 @@ function initializeStationList() {
 //USES GLOBAL STATIONS, add imtemediary function for stats or data. !!!!!!!!!!!!!!!!!!
 function loadStationDetails(stationId,name) {
     console.log('Station ID clicked:', stationId);
-    populateMeteoDataTable(stations[stationId]);
+    initPlageDate(stations[stationId]);
+    intermediaryFunction(stations[stationId]);
     const infoTitle = document.querySelector('.stationInfoTitle');
     infoTitle.textContent = name;
-    initPlageDate(stations[stationId]);
 }
 
 //Enters all the dates and Year provided by the elements
@@ -180,12 +178,13 @@ function initPlageDate(dataList){
     endYear.addEventListener('change', function(){intermediaryFunction(dataList)});
     endMonth.addEventListener('change', function(){intermediaryFunction(dataList)});
 
-    function intermediaryFunction(dataList){//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-        //add logic here
-        populateMeteoDataTable(dataList);
-        //add your trigger function
-    }
     
+    
+}
+function intermediaryFunction(dataList){//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    //add logic here
+    populateMeteoDataTable(dataList);
+    //add your trigger function
 }
 //DataList is the provided MeteoStation from the click event found in the loadStationDetails
 function populateMeteoDataTable(dataList) {
