@@ -120,7 +120,7 @@
     <ul>
         <li>Équipe 12</li>
         <li><small>Kevin Trépanier : kevin.trepanier.1@ens.etsmtl.ca</small></li>
-        <li><small>Kevin Trépanier : kevin.trepanier.1@ens.etsmtl.ca</small></li>
+        <li><small>Charles Simon : charles.simon.1@ens.etsmtl.ca</small></li>
         <li><small>Kevin Trépanier : kevin.trepanier.1@ens.etsmtl.ca</small></li>
         <li><small>Kevin Trépanier : kevin.trepanier.1@ens.etsmtl.ca</small></li>
 
@@ -128,4 +128,48 @@
 
 </footer>
 </body>
+
+<script type="text/javascript">
+    var stations = {};
+  </script>
+
+  <script src="Lab1_CSV/Station Inventory EN.csv.js"></script>
+  <script src="Lab1_CSV/118.csv.js"></script>
+  <script src="Lab1_CSV/1865.csv.js"></script>
+  <script src="Lab1_CSV/2205.csv.js"></script>
+  <script src="Lab1_CSV/3002.csv.js"></script>
+  <script src="Lab1_CSV/3328.csv.js"></script>
+  <script src="Lab1_CSV/3698.csv.js"></script>
+  <script src="Lab1_CSV/4337.csv.js"></script>
+  <script src="Lab1_CSV/4789.csv.js"></script>
+  <script src="Lab1_CSV/4932.csv.js"></script>
+  <script src="Lab1_CSV/5097.csv.js"></script>
+  <script src="Lab1_CSV/5251.csv.js"></script>
+  <script src="Lab1_CSV/5415.csv.js"></script>
+  <script src="Lab1_CSV/6207.csv.js"></script>
+  <script src="Lab1_CSV/6358.csv.js"></script>
+  <script src="Lab1_CSV/6633.csv.js"></script>
+  <script src="Lab1_CSV/6720.csv.js"></script>
+
+  <script type="text/javascript">
+    //Setup de la variable du fichier avec toutes les stations "Station Inventory EN.csv.js"
+    var stationInventoryArray = StationInventoryEN.split('\n').map(row => row.split(',')).slice(4);
+    stationInventoryArray.pop();
+
+    //Setup pour tous les différentes stations en une variable contenant les différentes stations
+    for (var key in stations) {
+      if (stations.hasOwnProperty(key)) {
+        stations[key] = stations[key].split('\n').map(row => row.split(',')).slice(1);
+        stations[key].pop();
+      }
+    }
+
+    //Regarder le résultat de ceci dans un navigateur pour voir le layout.
+    console.log(stationInventoryArray);
+    console.log(stations);
+
+    //Les variables qui sont misent global pour les utiliser dans d'autres fichier javasccript
+    window.stationInventoryArray = stationInventoryArray;
+    window.stations = stations;
+  </script>
 </html>
