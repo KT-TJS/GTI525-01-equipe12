@@ -1,4 +1,6 @@
 const structuredData = {};
+processStations(stations,stationInventoryArray);
+initializeStationList();
 function processStations(stationsObject, stationInventoryArray) {
     const stationIds = Object.keys(stationsObject);
     // Iterate through each station ID
@@ -32,10 +34,6 @@ function processStations(stationsObject, stationInventoryArray) {
     populateMeteoDataTable(temp);
 
 }
-
-processStations(stations,stationInventoryArray);
-initializeStationList();
-
 function initializeStationList() {
     const stationList = document.querySelector('.stationList');
 
@@ -89,7 +87,7 @@ function initializeStationList() {
             stationLi.textContent = dataStr;
             stationLi.addEventListener('click',  function(event) {
                 event.stopPropagation();
-                loadStationDetails(station.id,dataStr); // Need to implement this function to work with the data and stats select
+                loadStationDetails(station.id,dataStr); // Need to implement this function to work with the data and stats select !!!!!!!!!!!!!!!!!!
             });
             // Add station to both the province sublist and the All Stations sublist
             const clone = stationLi.cloneNode(true);
@@ -102,12 +100,13 @@ function initializeStationList() {
     });
 }
 
-//USES GLOBAL STATIONS
+//USES GLOBAL STATIONS, add imtemediary function for stats or data. !!!!!!!!!!!!!!!!!!
 function loadStationDetails(stationId,name) {
-    populateMeteoDataTable(stations[stationId]);
+    console.log('Station ID clicked:', stationId);
+    initPlageDate(stations[stationId]);
+    intermediaryFunction(stations[stationId]);
     const infoTitle = document.querySelector('.stationInfoTitle');
     infoTitle.textContent = name;
-    initPlageDate(stations[stationId]);
 }
 
 //Enters all the dates and Year provided by the elements
@@ -170,13 +169,21 @@ function initPlageDate(dataList){
     });
     endYear.selectedIndex = endYear.options.length -1;
     endMonth.selectedIndex = endMonth.options.length -1;
-    console.log("");
-    fromYear.addEventListener('change', function(){populateMeteoDataTable(dataList)});
-    fromMonth.addEventListener('change', function(){populateMeteoDataTable(dataList)});
-    endYear.addEventListener('change', function(){populateMeteoDataTable(dataList)});
-    endMonth.addEventListener('change', function(){populateMeteoDataTable(dataList)});
-    
+    //Onclick events for when date is changed// integrade some logic for stats
+    fromYear.addEventListener('change', function(){intermediaryFunction(dataList)});
+    fromMonth.addEventListener('change', function(){intermediaryFunction(dataList)});
+    endYear.addEventListener('change', function(){intermediaryFunction(dataList)});
+    endMonth.addEventListener('change', function(){intermediaryFunction(dataList)});
+
+
+
 }
+function intermediaryFunction(dataList){//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    //add logic here
+    populateMeteoDataTable(dataList);
+    //add your trigger function
+}
+//DataList is the provided MeteoStation from the click event found in the loadStationDetails
 function populateMeteoDataTable(dataList) {
     // Extracting the names of the first row that contains the CSV associated elements
     const fieldNames = dataList[0];
@@ -189,6 +196,7 @@ function populateMeteoDataTable(dataList) {
             tableBody.deleteRow(i);
         }
     }
+    //Logic for time check
     const fromYear = document.querySelector('#stationStartTimeYear');
     const fromMonth = document.querySelector('#stationStartTimeMonth');
     const endYear = document.querySelector('#stationEndTimeYear');
@@ -201,7 +209,8 @@ function populateMeteoDataTable(dataList) {
         const year = parseInt(insertData('"Year"'));
         const month = parseInt(insertData('"Month"'));
         const date = new Date(year,month-1);
-        if(((date-dateStart)>=0&&(dateEnd-date>=0))||insertData('"Year"')=='Year'){
+        console.log(((date-dateStart)>=0&&(dateEnd-date>=0)));
+        if(((date-dateStart)>=0&&(dateEnd-date>=0))||insertData('"Year"')=='Year'){ //Logic for time check end
             const row = tableBody.insertRow();
             const yearCell = row.insertCell(); yearCell.textContent = insertData('"Year"');
             const monthCell = row.insertCell();monthCell.textContent = insertData('"Month"');
