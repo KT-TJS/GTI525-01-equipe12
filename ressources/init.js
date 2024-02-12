@@ -7,7 +7,6 @@ function processStations(stationsObject, stationInventoryArray) {
     stationIds.forEach(stationId => {
         const stationName = stationsObject[stationId];
         var cid = parseInt(stationId, 10);
-        console.log(`Station ID: ${cid}`);
         
         stationInventoryArray.forEach(stationItem => {
             if (stationItem[3] != null) {
@@ -15,7 +14,6 @@ function processStations(stationsObject, stationInventoryArray) {
                 const sid = parseInt(cleanedString, 10);
                 // Check for matching station ID
                 if (sid === cid) {
-                    console.log(`Found a matching station in: ${stationItem[1]} named ${stationItem[0]} code ${stationItem[5]}`);
                     // Check if the province already exists in structuredData
                     if (!structuredData[stationItem[1]]) {
                         structuredData[stationItem[1]] = [];
@@ -105,7 +103,6 @@ function initializeStationList() {
 
 //USES GLOBAL STATIONS, add imtemediary function for stats or data. !!!!!!!!!!!!!!!!!!
 function loadStationDetails(stationId,name) {
-    console.log('Station ID clicked:', stationId);
     initPlageDate(stations[stationId]);
     intermediaryFunction(stations[stationId]);
     const infoTitle = document.querySelector('.stationInfoTitle');
@@ -213,7 +210,6 @@ function populateMeteoDataTable(dataList) {
         const year = parseInt(insertData('"Year"'));
         const month = parseInt(insertData('"Month"'));
         const date = new Date(year,month-1);
-        console.log(((date-dateStart)>=0&&(dateEnd-date>=0)));
         if(((date-dateStart)>=0&&(dateEnd-date>=0))||insertData('"Year"')=='Year'){ //Logic for time check end
             const row = tableBody.insertRow();
             const yearCell = row.insertCell(); yearCell.textContent = insertData('"Year"');

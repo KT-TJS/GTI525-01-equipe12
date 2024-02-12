@@ -3,6 +3,8 @@ document.addEventListener("DOMContentLoaded", function () {
     let infoHolder = new InfoHolder();
     infoHolder.init();
 
+    
+
     let stationsList = document.querySelectorAll(".stationList>li");
 
     for (let i = 0; i < stationsList.length; i++) {
