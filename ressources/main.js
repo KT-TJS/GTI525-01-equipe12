@@ -2,7 +2,10 @@ document.addEventListener("DOMContentLoaded", function () {
 
     let start=0;
     let fin=11;
-
+let startYearDe;
+let endYearDe;
+let startYearA;
+let endYearA;
     //Évènement lancé lorsqu'une station est sélectionnée
     const selectStationCE = new CustomEvent("selectStation", {
         bubbles: true,
@@ -100,6 +103,36 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
     }
+
+    function DisplayYear(){
+
+        select.innerHTML = "";
+
+      
+        select2.innerHTML = "";
+
+
+        
+
+        for( var i= start; i <= fin; i++){
+
+                var nouvMois = document.createElement("option");
+                nouvMois.value = i+1;
+                nouvMois.text = months[i];
+                select.appendChild(nouvMois);
+
+                var nouvMois2 = document.createElement("option");
+            nouvMois2.value = i+1;
+            nouvMois2.text = months[i];
+            select2.appendChild(nouvMois2);
+
+        }
+
+
+
+
+}
+
 
  
 
