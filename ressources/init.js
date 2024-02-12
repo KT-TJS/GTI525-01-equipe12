@@ -5,7 +5,6 @@ function processStations(stationsObject, stationInventoryArray) {
     stationIds.forEach(stationId => {
         const stationName = stationsObject[stationId];
         var cid = parseInt(stationId, 10);
-        console.log(`Station ID: ${cid}`);
         
         stationInventoryArray.forEach(stationItem => {
             if (stationItem[3] != null) {
@@ -13,7 +12,6 @@ function processStations(stationsObject, stationInventoryArray) {
                 const sid = parseInt(cleanedString, 10);
                 // Check for matching station ID
                 if (sid === cid) {
-                    console.log(`Found a matching station in: ${stationItem[1]} named ${stationItem[0]} code ${stationItem[5]}`);
                     // Check if the province already exists in structuredData
                     if (!structuredData[stationItem[1]]) {
                         structuredData[stationItem[1]] = [];
@@ -29,7 +27,6 @@ function processStations(stationsObject, stationInventoryArray) {
             }
         });
     });
-    console.log(structuredData);
     temp = [];
     temp.push(stations[stationIds[0]][0]);
     populateMeteoDataTable(temp);
@@ -107,7 +104,6 @@ function initializeStationList() {
 
 //USES GLOBAL STATIONS
 function loadStationDetails(stationId,name) {
-    console.log('Station ID clicked:', stationId);
     populateMeteoDataTable(stations[stationId]);
     const infoTitle = document.querySelector('.stationInfoTitle');
     infoTitle.textContent = name;
@@ -174,6 +170,7 @@ function initPlageDate(dataList){
     });
     endYear.selectedIndex = endYear.options.length -1;
     endMonth.selectedIndex = endMonth.options.length -1;
+    console.log("");
     fromYear.addEventListener('change', function(){populateMeteoDataTable(dataList)});
     fromMonth.addEventListener('change', function(){populateMeteoDataTable(dataList)});
     endYear.addEventListener('change', function(){populateMeteoDataTable(dataList)});
@@ -199,13 +196,11 @@ function populateMeteoDataTable(dataList) {
     const dateStart = new Date(fromYear.value,fromMonth.value-1);
     const dateEnd = new Date(endYear.value,endMonth.value-1);
     // Iterate over the data objects to create table rows
-    console.log(dataObjects);
     dataObjects.forEach(dataObject => {
         // Create a new row
         const year = parseInt(insertData('"Year"'));
         const month = parseInt(insertData('"Month"'));
         const date = new Date(year,month-1);
-        console.log(((date-dateStart)>=0&&(dateEnd-date>=0)));
         if(((date-dateStart)>=0&&(dateEnd-date>=0))||insertData('"Year"')=='Year'){
             const row = tableBody.insertRow();
             const yearCell = row.insertCell(); yearCell.textContent = insertData('"Year"');
