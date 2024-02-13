@@ -427,35 +427,35 @@ function populateMeteoMonthTable(dataList,isCreation=false) {
         const typeCell1 = row1.insertCell();      typeCell1.textContent     = "Température moyenne mensuelle";
         const maxCell1 = row1.insertCell();       maxCell1.textContent      = maxMeanTemp +"ºC " ;
         const maxYearCell1 = row1.insertCell();   maxYearCell1.textContent  = maxMeanTempYear ;
-        const minCell1= row1.insertCell();       minCell1.textContent       = minMeanTemp<1000 ? minMeanTemp:0 + "ºC ";
+        const minCell1= row1.insertCell();       minCell1.textContent       = (minMeanTemp<1000 ? minMeanTemp:0) + "ºC ";
         const minYearCell1 = row1.insertCell();   minYearCell1.textContent  = minMeanTempYear;
 
         const row2 = tableBody.insertRow();
         const typeCell2 = row2.insertCell();      typeCell2.textContent      = "Température extrême";
         const maxCell2 = row2.insertCell();       maxCell2.textContent      = maxExtTemp + "ºC ";
         const maxYearCell2 = row2.insertCell();   maxYearCell2.textContent  = maxExtTempYear ;
-        const minCell2= row2.insertCell();       minCell2.textContent       = minExtTemp<1000 ? minExtTemp:0 + "ºC ";
+        const minCell2= row2.insertCell();       minCell2.textContent       = (minExtTemp<1000 ? minExtTemp:0) + "ºC ";
         const minYearCell2 = row2.insertCell();   minYearCell2.textContent  = minExtTempYear;
 
         const row3 = tableBody.insertRow();
         const typeCell3 = row3.insertCell();      typeCell3.textContent     = "Quantitée de pluie";
         const maxCell3 = row3.insertCell();       maxCell3.textContent      = maxRain + "cm ";
         const maxYearCell3 = row3.insertCell();   maxYearCell3.textContent  = maxRainYear ;
-        const minCell3= row3.insertCell();        minCell3.textContent      = minRain<1000 ? minRain:0 + "cm ";
+        const minCell3= row3.insertCell();        minCell3.textContent      = (minRain<1000 ? minRain:0) + "cm ";
         const minYearCell3 = row3.insertCell();   minYearCell3.textContent  = minRainYear ;
 
         const row4 = tableBody.insertRow();
         const typeCell4 = row4.insertCell();      typeCell4.textContent     = "Quantité de neige";
         const maxCell4 = row4.insertCell();       maxCell4.textContent      = maxSnow + "cm ";
         const maxYearCell4 = row4.insertCell();   maxYearCell4.textContent  = maxSnowYear ;
-        const minCell4= row4.insertCell();       minCell4.textContent       = minSnow<1000 ? minSnow:0 + "cm ";
+        const minCell4= row4.insertCell();       minCell4.textContent       = (minSnow<1000 ? minSnow:0) + "cm ";
         const minYearCell4= row4.insertCell();   minYearCell4.textContent   = minSnowYear;
 
         const row5 = tableBody.insertRow();
         const typeCell5 = row5.insertCell();      typeCell5.textContent     = "Vitesse du vent";
         const maxCell5 = row5.insertCell();       maxCell5.textContent      = maxWind + "Km/h";
         const maxYearCell5 = row5.insertCell();   maxYearCell5.textContent  = maxWindYear ;
-        const minCell5= row5.insertCell();       minCell5.textContent       = minWind<1000 ? minWind:0 + "Km/h";
+        const minCell5= row5.insertCell();       minCell5.textContent       = (minWind<1000 ? minWind:0) + "Km/h";
         const minYearCell5 = row5.insertCell();   minYearCell5.textContent  = minWindYear ;
 
         
@@ -628,7 +628,7 @@ function populateMeteoStatTable(dataList,isCreation=false) {
         const maxCell1 = row1.insertCell();       maxCell1.textContent      = maxMeanTemp +"ºC " ;
         const maxYearCell1 = row1.insertCell();   maxYearCell1.textContent  = maxMeanTempYear ;
         const maxMonthCell1 = row1.insertCell();   maxMonthCell1.textContent  = maxMeanTempMonth ;
-        const minCell1= row1.insertCell();       minCell1.textContent       = minMeanTemp<10000 ? minMeanTemp:0 + "ºC ";
+        const minCell1= row1.insertCell();       minCell1.textContent       = (minMeanTemp<10000 ? minMeanTemp:0) + "ºC ";
         const minYearCell1 = row1.insertCell();   minYearCell1.textContent  = minMeanTempYear;
         const minMonthCell1 = row1.insertCell();   minMonthCell1.textContent  = minMeanTempMonth ;
 
@@ -637,7 +637,7 @@ function populateMeteoStatTable(dataList,isCreation=false) {
         const maxCell2 = row2.insertCell();       maxCell2.textContent      = maxExtTemp + "ºC ";
         const maxYearCell2 = row2.insertCell();   maxYearCell2.textContent  = maxExtTempYear ;
         const maxMonthCell2 = row2.insertCell();   maxMonthCell2.textContent  = maxExtTempMonth ;
-        const minCell2= row2.insertCell();       minCell2.textContent       = minExtTemp<10000 ? minExtTemp:0 + "ºC ";
+        const minCell2= row2.insertCell();       minCell2.textContent       = (minExtTemp<10000 ? minExtTemp:0) + "ºC ";
         const minYearCell2 = row2.insertCell();   minYearCell2.textContent  = minExtTempYear ;
         const minMonthCell2 = row2.insertCell();   minMonthCell2.textContent  = minExtTempMonth ;
 
@@ -646,7 +646,7 @@ function populateMeteoStatTable(dataList,isCreation=false) {
         const maxCell3 = row3.insertCell();       maxCell3.textContent      = maxRain + "cm ";
         const maxYearCell3 = row3.insertCell();   maxYearCell3.textContent  = maxRainYear ;
         const maxMonthCell3 = row3.insertCell();   maxMonthCell3.textContent  = maxRainMonth ;
-        const minCell3= row3.insertCell();        minCell3.textContent      = minRain<10000 ? minRain:0 + "cm ";
+        const minCell3= row3.insertCell();        minCell3.textContent      = (minRain<10000 ? minRain:0) + "cm ";
         const minYearCell3 = row3.insertCell();   minYearCell3.textContent  = minRainYear;
         const minMonthCell3 = row3.insertCell();   minMonthCell3.textContent  = minRainMonth ;
 
@@ -655,7 +655,7 @@ function populateMeteoStatTable(dataList,isCreation=false) {
         const maxCell4 = row4.insertCell();       maxCell4.textContent      = maxSnow + "cm ";
         const maxYearCell4 = row4.insertCell();   maxYearCell4.textContent  = maxSnowYear ;
         const maxMonthCell4 = row4.insertCell();   maxMonthCell4.textContent  = maxSnowMonth ;
-        const minCell4= row4.insertCell();       minCell4.textContent       = minSnow<10000 ? minSnow:0 + "cm ";
+        const minCell4= row4.insertCell();       minCell4.textContent       = (minSnow<10000 ? minSnow:0) + "cm ";
         const minYearCell4= row4.insertCell();   minYearCell4.textContent   = minSnowYear ;
         const minMonthCell4= row4.insertCell();   minMonthCell4.textContent   = minSnowMonth ;
 
@@ -664,7 +664,7 @@ function populateMeteoStatTable(dataList,isCreation=false) {
         const maxCell5 = row5.insertCell();       maxCell5.textContent      = maxWind + "Km/h";
         const maxYearCell5 = row5.insertCell();   maxYearCell5.textContent  = maxWindYear ;
         const maxMonthCell5 = row5.insertCell();   maxMonthCell5.textContent  = maxWindMonth ;
-        const minCell5= row5.insertCell();       minCell5.textContent       = minWind<10000 ? minWind:0 + "Km/h";
+        const minCell5= row5.insertCell();       minCell5.textContent       = (minWind<10000 ? minWind:0) + "Km/h";
         const minYearCell5 = row5.insertCell();   minYearCell5.textContent  = minWindYear ;
         const minMonthCell5 = row5.insertCell();   minMonthCell5.textContent  = minWindMonth ;
 
