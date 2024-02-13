@@ -247,7 +247,7 @@ function populateMeteoDataTable(dataList,isCreation=false) {
         }
 
         function insertData(name){
-            if (dataObject[fieldNames.indexOf(name)].replace(/"/g, '')== '') return '-';
+            if (dataObject[fieldNames.indexOf(name)].replace(/"/g, '')== '') return '';
             return dataObject[fieldNames.indexOf(name)].replace(/"/g, '');
         }
     });}
@@ -284,7 +284,7 @@ function populateMeteoDataTable(dataList,isCreation=false) {
 
 
             function insertData(name){
-                if (dataObject[fieldNames.indexOf(name)].replace(/"/g, '')== '') return '-';
+                if (dataObject[fieldNames.indexOf(name)].replace(/"/g, '') == '') return '';
                 return dataObject[fieldNames.indexOf(name)].replace(/"/g, '');
             }
         });
