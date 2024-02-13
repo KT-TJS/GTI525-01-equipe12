@@ -1,4 +1,4 @@
-const structuredData = {};
+var structuredData = {};
 processStations(stations,stationInventoryArray);
 initializeStationList();
 function processStations(stationsObject, stationInventoryArray) {
@@ -14,13 +14,13 @@ function processStations(stationsObject, stationInventoryArray) {
                 const sid = parseInt(cleanedString, 10);
                 // Check for matching station ID
                 if (sid === cid) {
-                    // Check if the province already exists in structuredData
                     if (!structuredData[stationItem[1]]) {
                         structuredData[stationItem[1]] = [];
                     }
                     var cleanName = stationItem[1];
                     // Add the station to the province
-                    structuredData[cleanName].push({
+                
+                    structuredData[cleanName.toString()].push({
                         name: stationItem[0].replace(/"/g, ''),
                         code: stationItem[5].replace(/"/g, ''),
                         id: sid
@@ -57,17 +57,31 @@ function initializeStationList() {
         // subList.style.display = isDisplayed ? 'none' : 'block';
     };
 
-   
     allStationsSpan.onclick = (event) => {
         event.stopPropagation();
         toggleSubList(allStationsSubList);
     };
     allStationsLi.appendChild(allStationsSubList);
     stationList.appendChild(allStationsLi);
+    var sortedObject = {};
 
+    // Get all keys of the original object, sort them alphabetically, 
+    // and then iterate over them
+    Object.keys(structuredData).sort().forEach(key => {
+        // Copy each entry into the new object
+        sortedObject[key] = structuredData[key];
+    });
+    structuredData = sortedObject;
+    Object.keys(structuredData).forEach(key => {
+        if (Array.isArray(structuredData[key])) {
+            structuredData[key].sort((a, b) => {
+                return a.name.localeCompare(b.name);
+            });
+        }
+    });
     // Iterate over each province in structuredData
     Object.keys(structuredData).forEach(provinceName => {
-        const stations = structuredData[provinceName];
+        const stationss = structuredData[provinceName];
         const provinceLi = document.createElement('li');
         const provinceSpan = document.createElement('span');
         provinceSpan.textContent = provinceName.replace(/"/g, '');
@@ -81,23 +95,33 @@ function initializeStationList() {
             toggleSubList(stationSubList);
         };
         // Iterate over each station in the province
-        stations.forEach(station => {
+        
+        stationss.forEach(station => {
             const stationLi = document.createElement('li');
-            const dataStr = `${station.name} - (${station.code})`
+            const dataStr = `${station.name} - (${station.code})`;
             stationLi.textContent = dataStr;
-            stationLi.addEventListener('click',  function(event) {
+        
+            // Create a handler function
+            const clickHandler = function(event) {
                 event.stopPropagation();
-                loadStationDetails(station.id,dataStr); // Need to implement this function to work with the data and stats select !!!!!!!!!!!!!!!!!!
-            });
-            // Add station to both the province sublist and the All Stations sublist
+                console.log("pressed on " + dataStr);
+                loadStationDetails(station.id, dataStr);
+            };
+            stationLi.addEventListener('click', clickHandler);
             const clone = stationLi.cloneNode(true);
-            clone.onclick = stationLi.onclick; 
-            stationSubList.appendChild(stationLi);
+            clone.addEventListener('click', clickHandler);
             allStationsSubList.appendChild(clone);
+            stationSubList.appendChild(stationLi);
         });
         provinceLi.appendChild(stationSubList);
         stationList.appendChild(provinceLi);
     });
+    //Reorders things around
+    let listItems = Array.from(allStationsSubList.querySelectorAll('li'));
+    listItems.sort((a, b) => a.textContent.localeCompare(b.textContent));
+    listItems.forEach(item => allStationsSubList.appendChild(item));
+
+    
 }
 
 //USES GLOBAL STATIONS, add imtemediary function for stats or data. !!!!!!!!!!!!!!!!!!
@@ -105,7 +129,12 @@ function loadStationDetails(stationId,name) {
     initPlageDate(stations[stationId]);
     intermediaryFunction(stations[stationId]);
     const infoTitle = document.querySelector('.stationInfoTitle');
+    const buttonReset = document.querySelector('.allData');
     infoTitle.textContent = name;
+    buttonReset.addEventListener('click', function(event){
+        event.preventDefault();
+        loadStationDetails(stationId,name)});
+    
 }
 
 //Enters all the dates and Year provided by the elements
@@ -117,8 +146,6 @@ function initPlageDate(dataList){
     dataObjects.forEach(dataObject => {
         const year = insertData('"Year"');
         const month = insertData('"Month"');
-    
-        
         function insertData(name){
             return dataObject[fieldNames.indexOf(name)].replace(/"/g, '');
         }
@@ -180,6 +207,7 @@ function initPlageDate(dataList){
 function intermediaryFunction(dataList){//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     //add logic here
     populateMeteoDataTable(dataList);
+
     //add your trigger function
 }
 //DataList is the provided MeteoStation from the click event found in the loadStationDetails
@@ -266,7 +294,6 @@ function populateMeteoDataTable(dataList,isCreation=false) {
                 if (dataObject[fieldNames.indexOf(name)].replace(/"/g, '')== '') return '-';
                 return dataObject[fieldNames.indexOf(name)].replace(/"/g, '');
             }
-
         });
 
     }
