@@ -22,25 +22,6 @@
 
 <div class="contentHolder">
     <ul class="stationList">
-        <!--Je met ici un template de comment la liste des stations doit être affichée.-->
-        <!-- <li id="AllStations">
-            <span>Toutes les stations</span>
-        </li>
-        <li class="">
-            <span>Province 1</span>
-            <ul class="stationSubList">
-                <li>Station 1</li>
-                <li>Station 2</li>
-            </ul>
-        </li>
-        <li class="active">
-            <span>Province 2</span>
-            <ul class="stationSubList">
-                <li class="active">Station 3</li>
-                <li>Station 4</li>
-            </ul>
-        </li> -->
-
     </ul>
     <section class="specifications">
         <div class="stationInfoSection">
@@ -75,7 +56,6 @@
             <div class="stats">
                 <h4>Statistiques Globales</h4>
                 <div class="meteoDataStatGlob">
-                    
                 </div>
                 <h4>Statistiques par Mois</h4>
                 <div class="meteoDataStat">
@@ -117,27 +97,6 @@
   <script src="Lab1_CSV/6358.csv.js"></script>
   <script src="Lab1_CSV/6633.csv.js"></script>
   <script src="Lab1_CSV/6720.csv.js"></script>
-  
-  <script type="text/javascript">
-      //Setup de la variable du fichier avec toutes les stations "Station Inventory EN.csv.js"
-      var stationInventoryArray = StationInventoryEN.split('\n').map(row => row.split(',')).slice(4);
-      stationInventoryArray.pop();
-      
-      //Setup pour tous les différentes stations en une variable contenant les différentes stations
-      for (var key in stations) {
-          if (stations.hasOwnProperty(key)) {
-              stations[key] = stations[key].split('\n').map(row => row.split(',')).slice(1);
-              stations[key].pop();
-            }
-        }
-    
-        //Regarder le résultat de ceci dans un navigateur pour voir le layout.
-        console.log(stationInventoryArray);
-        console.log(stations);
-        
-        //Les variables qui sont misent global pour les utiliser dans d'autres fichier javasccript
-        window.stationInventoryArray = stationInventoryArray;
-        window.stations = stations;
-    </script>
-    <script src="ressources/init.js"></script>
+  <script src="ressources/loader.js"></script>
+  <script src="ressources/init.js"></script>
 </html>
