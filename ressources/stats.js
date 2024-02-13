@@ -1,9 +1,9 @@
 document.addEventListener("DOMContentLoaded", function () {
     const tableBody = document.querySelector('.meteoData table tbody');
     let gSH = new GlobalStatHolder(tableBody);
-    gSH.init();
- 
-
+   
+    const fromYear = document.querySelector('#stationStartTimeYear');
+    fromYear.addEventListener('change', function(){ gSH.init()});
 
 });
 
@@ -17,11 +17,11 @@ this.tableBody=tableBody
 
     init() {
        
-        for (let i = 0; i < this.tableBody.rows.length; i++) {
+        for (let i = 0; i < 10; i++) {
             const row = this.tableBody.rows[i];
             
             // Access cells in the current row
-            for (let j = 0; j < row.cells.length; j++) {
+            for (let j = 0; j < 10; j++) {
                 const cell = row.cells[j];
                 console.log("Row " + (i + 1) + ", Column " + (j + 1) + ": " + cell.textContent);
             }
