@@ -208,12 +208,12 @@ function populateStatData(dataList) {
             matrix.push(z);
         }
     });
-console.log(matrix[0]);
-console.log(matrix[1]);
+    console.log(matrix[0]);
+    console.log(matrix[1]);
 
-   /*  matrix.forEach(x =>
-
-        console.log(x)) */
+    /*  matrix.forEach(x =>
+ 
+         console.log(x)) */
 
     let tableBody = document.getElementById("meteoDataGlobal");
     var donnee = ["Mean Temp (°C)", "Extr Temp (°C)", "Total Rain (mm)", "Total Snow (cm)", "Spd of Max Gust (km/h)"];
@@ -224,21 +224,21 @@ console.log(matrix[1]);
         let newText = document.createTextNode(donnee[i]);
         cell.appendChild(newText);
 
-        
-
-             max =this.findExtremeMois(matrix,donnee[i], 1, 7, mois = -1);
-             min =this.findExtremeMois(matrix,donnee[i], -1, 7, mois = -1);
-
-            
-
-    var cell2 = row.insertCell(1);
-
-    let newText2 = document.createTextNode(max[0]);
-
-    cell2.appendChild(newText2);
 
 
-}
+        max = this.findExtremeMois(matrix, donnee[i], 1, 7);
+        //  min =this.findExtremeMois(matrix,donnee[i], -1, 7);
+
+
+
+        var cell2 = row.insertCell(1);
+
+        let newText2 = document.createTextNode(max[0]);
+
+        cell2.appendChild(newText2);
+
+
+    }
 
 }
 
@@ -284,71 +284,52 @@ function loadMois(mois, table, matrix) {
 
 }
 
-function findExtremeMois(champs, donne,minMax = 1, pos, mois = -1) {
+function findExtremeMois(champs, donne, minMax = 1, pos) {
     var extremeValue = champs[15][7];
-   var month=6;
-    
-    //console.log("yyyyppppp:" +extremeValue);
+    var month = 6;
+    var year = 5;
+
+
+    console.log("yyyyppppp:" + champs.length);
     var valueFound = false;
-    var monthToSend = champs[1][1];
-    var annee = champs[10][5];
-    if (mois > -1) {
-        monthToSend = mois;
-        if (minMax === 1) {
-            for (let i = 2; i < champs.length; i++) {
+    var monthToSend = champs[1][month];
+    var annee = champs[10][year];
 
-                if (champs[i][pos] > extremeValue && champs[i][month] === mois) {
-                    extremeValue = champs[i][pos];
-                    annee = champs[i][0];
-                    valueFound = true;
-console.log(champs[i][pos] +"vs1" +extremeValue)
-                }
 
-            }
 
-        } else {
-            for (let i = 1; i < champs.length; i++) {
-                if (champs[i][pos] < extremeValue && champs[i][month] === mois) {
-                    extremeValue = champs[i][pos];
-                    annee = champs[i][0];
-                    valueFound = true;
-                    console.log(champs[i][pos] +"vs2" +extremeValue)
-                }
+
+    if (minMax === 1) {
+        for (let i = 1; i < champs.length; i++) {
+
+            if (champs[i][pos] > extremeValue) {
+                console.log(champs[i][pos] + " vs 2" + extremeValue);
+                extremeValue = champs[i][pos];
+                annee = champs[i][year];
+                valueFound = true;
+                monthToSend = champs[i][month];
+              
             }
 
         }
+
     } else {
-
-        if (minMax === 1) {
-            for (let i = 1; i < champs.length; i++) {
-
-                if (champs[i][pos] > extremeValue) {
-                    extremeValue = champs[i][pos];
-                    annee = champs[i][0];
-                    valueFound = true;
-                    monthToSend = champs[i][1];
-                    console.log(champs[i][pos] +"vs3" +extremeValue)
-                }
-
-            }
-
-        } else {
-            for (let i = 1; i < champs.length; i++) {
-                if (champs[i][pos] < extremeValue) {
-                    extremeValue = champs[i][pos];
-                    annee = champs[i][0];
-                    valueFound = true;
-                    monthToSend = champs[i][1];
-                    console.log(champs[i][pos] +"vs4" +extremeValue)
-                }
+        for (let i = 1; i < champs.length; i++) {
+            if (champs[i][pos] < extremeValue) {
+                console.log(champs[i][pos] + " vs 2" + extremeValue);
+                extremeValue = champs[i][pos];
+                annee = champs[i][year];
+                valueFound = true;
+                monthToSend = champs[i][month];
+                
             }
         }
-
     }
 
 
+
+
     var resultat = [extremeValue, annee, monthToSend, valueFound];
-    // console.log(resultat[0] + "  " + resultat[1] + " " + resultat[2] + "  " + resultat[3]);
+    console.log(resultat[0] + "  " + resultat[1] + " " + resultat[2] + "  " + resultat[3]);
     return resultat;
 }
 //DataList is the provided MeteoStation from the click event found in the loadStationDetails
