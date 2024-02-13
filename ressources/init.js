@@ -51,16 +51,10 @@ function initializeStationList() {
     // Create sublist for All Stations
     const allStationsSubList = document.createElement('ul');
     allStationsSubList.classList.add('stationSubList');
-    // allStationsSubList.style.display = 'none'; 
-    const toggleSubList = (subList) => {
-        // const isDisplayed = subList.style.display === 'block'; // This is buggy
-        // subList.style.display = isDisplayed ? 'none' : 'block';
-    };
-
-    allStationsSpan.onclick = (event) => {
+   
+    allStationsSpan.addEventListener("click",function (event){
         event.stopPropagation();
-        toggleSubList(allStationsSubList);
-    };
+        });
     allStationsLi.appendChild(allStationsSubList);
     stationList.appendChild(allStationsLi);
     var sortedObject = {};
@@ -90,10 +84,9 @@ function initializeStationList() {
         const stationSubList = document.createElement('ul');
         stationSubList.classList.add('stationSubList');
 
-        provinceSpan.onclick = (event) => {
+        provinceSpan.addEventListener("click",function (event){
             event.stopPropagation();
-            toggleSubList(stationSubList);
-        };
+            });
         // Iterate over each station in the province
         
         stationss.forEach(station => {
