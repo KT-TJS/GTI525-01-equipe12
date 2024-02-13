@@ -62,7 +62,6 @@ function initializeStationList() {
     // Get all keys of the original object, sort them alphabetically, 
     // and then iterate over them
     Object.keys(structuredData).sort().forEach(key => {
-        // Copy each entry into the new object
         sortedObject[key] = structuredData[key];
     });
     structuredData = sortedObject;
@@ -117,7 +116,7 @@ function initializeStationList() {
     
 }
 
-//USES GLOBAL STATIONS, add imtemediary function for stats or data. !!!!!!!!!!!!!!!!!!
+//USES GLOBAL STATIONS
 function loadStationDetails(stationId,name) {
     initPlageDate(stations[stationId]);
     intermediaryFunction(stations[stationId]);
@@ -197,13 +196,12 @@ function initPlageDate(dataList){
 
 
 }
-function intermediaryFunction(dataList){//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-    //add logic here
+function intermediaryFunction(dataList){
+
     populateMeteoDataTable(dataList);
     populateMeteoStatTable(dataList);
     populateMeteoMonthTable(dataList);
 
-    //add your trigger function
 }
 //DataList is the provided MeteoStation from the click event found in the loadStationDetails
 function populateMeteoDataTable(dataList,isCreation=false) {
@@ -311,10 +309,6 @@ function populateMeteoMonthTable(dataList,isCreation=false) {
     // Iterate over the data objects to create table rows
     const convertMonth = ["Janvier",'Fevrier',"Mars",'Avril',"May",'Juin',"Juillet",'Aout',"Septembre",'Octobre',"Novembre",'Decembre'];
     convertMonth.forEach(months => {
-        // Create a new row
-        // const year = parseInt(insertData('"Year"'));
-        // const month = parseInt(insertData('"Month"'));
-        // const date = new Date(year,month-1);
 
         var maxMeanTemp = 0;
         var maxMeanTempYear = fromYear.value;
