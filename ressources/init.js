@@ -410,17 +410,23 @@ function populateMeteoMonthTable(dataList,isCreation=false) {
         });
 
         const tableBody  = document.createElement('table');
+        tableBody.createTHead();
         const header = document.createElement('h1');
         header.textContent = months;
         tableDiv.appendChild(header);
         tableDiv.appendChild(tableBody);
 
         const row = tableBody.insertRow();
-        const typeCell = row.insertCell();      typeCell.textContent = "Donnée";
-        const maxCell = row.insertCell();       maxCell.textContent = "Valeur maximale";
-        const maxYearCell = row.insertCell();   maxYearCell.textContent = "Année";
-        const minCell= row.insertCell();       minCell.textContent = "Valeur Minimale";
-        const minYearCell = row.insertCell();   minYearCell.textContent = "Année";
+        temp=document.createElement("th");
+        const typeCell = row.appendChild(temp);     typeCell.textContent = "Donnée";
+        temp=document.createElement("th");
+        const maxCell = row.appendChild(temp);      maxCell.textContent = "Valeur maximale";
+        temp=document.createElement("th");
+        const maxYearCell = row.appendChild(temp);  maxYearCell.textContent = "Année";
+        temp=document.createElement("th");
+        const minCell= row.appendChild(temp);      minCell.textContent = "Valeur Minimale";
+        temp=document.createElement("th");
+        const minYearCell = row.appendChild(temp);  minYearCell.textContent = "Année";
 
          //Logic for time check end
         const row1 = tableBody.insertRow();
@@ -600,19 +606,27 @@ function populateMeteoStatTable(dataList,isCreation=false) {
         });
 
         const tableBody  = document.createElement('table');
+        tableBody.createTHead();
         const header = document.createElement('h1');
         header.textContent = "Données Globales";
         tableDiv.appendChild(header);
         tableDiv.appendChild(tableBody);
 
         const row = tableBody.insertRow();
-        const typeCell = row.insertCell();      typeCell.textContent = "Donnée";
-        const maxCell = row.insertCell();       maxCell.textContent = "Valeur maximale";
-        const maxYearCell = row.insertCell();   maxYearCell.textContent = "Année";
-        const maxMonthCell = row.insertCell();   maxMonthCell.textContent = "Mois";
-        const minCell= row.insertCell();       minCell.textContent = "Valeur Minimale";
-        const minYearCell = row.insertCell();   minYearCell.textContent = "Année";
-        const minMonthCell = row.insertCell();   minMonthCell.textContent = "Mois";
+        temp=document.createElement("th");
+        const typeCell = row.appendChild(temp);      typeCell.textContent = "Donnée";
+        temp=document.createElement("th");
+        const maxCell = row.appendChild(temp);       maxCell.textContent = "Valeur maximale";
+        temp=document.createElement("th");
+        const maxYearCell = row.appendChild(temp);   maxYearCell.textContent = "Année";
+        temp=document.createElement("th");
+        const maxMonthCell = row.appendChild(temp);   maxMonthCell.textContent = "Mois";
+        temp=document.createElement("th");
+        const minCell= row.appendChild(temp);       minCell.textContent = "Valeur Minimale";
+        temp=document.createElement("th");
+        const minYearCell = row.appendChild(temp);   minYearCell.textContent = "Année";
+        temp=document.createElement("th");
+        const minMonthCell = row.appendChild(temp);   minMonthCell.textContent = "Mois";
 
          //Logic for time check end
         const row1 = tableBody.insertRow();
