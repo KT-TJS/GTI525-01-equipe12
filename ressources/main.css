@@ -193,10 +193,8 @@ header, footer {
 /*Section Données météo*/
 
 .meteoData {
-
     overflow: scroll;
     max-width: 1100px;
-
 }
 
 .meteoData th {
@@ -204,6 +202,32 @@ header, footer {
     white-space: nowrap;
     padding: 5px 2px;
     position:sticky;
+    top:0;
+    background-color: white;
+}
+.meteoDataStat {
+    max-width: 1100px;
+}
+
+.meteoDataStat th {
+    border: 2px solid;
+    white-space: nowrap;
+    padding: 5px 2px;
+    position:relative;
+    top:0;
+    background-color: white;
+}
+.meteoDataStatGlob {
+    max-width: 1100px;
+}
+.stats{
+    overflow: scroll;
+}
+.meteoDataStatGlob th {
+    border: 2px solid;
+    white-space: nowrap;
+    padding: 5px 2px;
+    position:relative;
     top:0;
     background-color: white;
 }

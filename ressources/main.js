@@ -4,6 +4,12 @@ document.addEventListener("DOMContentLoaded", function () {
 
     let tableDataHolder=document.querySelector("#DataView .meteoData");
     tableDataHolder.style.maxHeight=window.innerHeight-tableDataHolder.getBoundingClientRect().y-130+"px";
+    let tableDataHolder2=document.querySelector("#StatsView .meteoDataStat");
+    tableDataHolder2.style.maxHeight=window.innerHeight-tableDataHolder.getBoundingClientRect().y-130+"px";
+    let tableDataHolder3=document.querySelector("#StatsView .meteoDataStatGlob");
+    tableDataHolder3.style.maxHeight=window.innerHeight-tableDataHolder.getBoundingClientRect().y-130+"px";
+    let tableDataHolder4=document.querySelector("#StatsView .stats");
+    tableDataHolder4.style.maxHeight=window.innerHeight-tableDataHolder.getBoundingClientRect().y-100+"px";
 
     let infoHolder = new InfoHolder();
     infoHolder.init();
@@ -15,7 +21,6 @@ document.addEventListener("DOMContentLoaded", function () {
     for (let i = 0; i < stationsList.length; i++) {
 
         stationsList[i].querySelector("span").addEventListener("click", function (e) {
-            console.log(e);
             if(e.target.parentElement.classList.contains("active")&&e.target.parentElement===stationsList[i]){
                 stationsList[i].classList.toggle("close");
 
