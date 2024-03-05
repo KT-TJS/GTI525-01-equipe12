@@ -2,8 +2,8 @@ const express = require('express');
 const bodyParser = require('body-parser');
 
 const axios = require('axios');
-const fs = require('fs').promises; // Importing the 'fs' module for file operations
-
+const fs = require('fs').promises; 
+const path = require('path');
 const app = express();
 const port = 8080;
 
@@ -53,17 +53,17 @@ fetchCurrentWeather(cityCode)
 // Route to handle AJAX requests
 app.post('/ajax_endpoint', async (req, res) => {
   try {
-    // Assuming the AJAX request sends some JSON data with a 'code' field
+   
     const { code } = req.body;
 
-    // Fetching data from the API using Axios
+ 
     const rssUrl = `https://meteo.gc.ca/rss/city/${code}_f.xml`;
     const response = await axios.get(rssUrl);
 
-    // Sending the fetched data back to the client along with station mapping data
+   
     res.json({ success: true, data: response.data, stationMapping: stationMappingData });
   } catch (error) {
-    // Handling errors
+   
     console.error('Error fetching data:', error);
     res.status(500).json({ success: false, error: 'Failed to fetch data' });
   }
@@ -84,17 +84,22 @@ async function fetchCurrentWeather(code) {
 async function fetchClimateDay(stationId, year, month, day) {
   try {
       const climateUrl = `https://climate.weather.gc.ca/climate_data/bulk_data_e.html?format=csv&stationID=${stationId}&Year=${year}&Month=${month}&Day=${day}&timeframe=1&submit=%20Download+Data`;
-      const response = await fetch(climateUrl);
-      const data = await response.text();
-      return data;
+      const response = await axios.get(climateUrl);
+      return response.data;
   } catch (error) {
       console.error('Error fetching climate data:', error);
       throw new Error('Failed to fetch climate data');
   }
 }
-
+//Permet au ressources pour le HTML d'être utiliser
+app.use(express.static(path.join(__dirname, '..', '..')));
 
 // Start the server
 app.listen(port, () => {
   console.log(`Server is running on http://localhost:${port}`);
+});
+
+app.get('/', (req, res) => {
+//ouvre le html quand le server est parti
+ res.sendFile(path.join(__dirname, '..', '..', 'index.html'));
 });
