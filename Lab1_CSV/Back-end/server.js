@@ -17,8 +17,6 @@ async function loadStationMapping() {
     const data = await fs.readFile('station_mapping.json', 'utf8');
     stationMappingData = JSON.parse(data);
     console.log('Station mapping data loaded successfully.');
-    console.log(4)
-    console.log(typeof stationMappingData)
     console.log(stationMappingData)
 
   } catch (error) {
@@ -30,8 +28,8 @@ async function loadStationMapping() {
 // Call the function to load station mapping data when the server starts
 loadStationMapping();
 
-const cityCode = 'qc-133'; // Replace with the desired city code
-fetchWeatherData(cityCode)
+/* const cityCode = 'qc-133'; // Replace with the desired city code
+fetchCurrentWeather(cityCode)
   .then(data => {
     console.log('Weather data:', data);
   })
@@ -39,17 +37,17 @@ fetchWeatherData(cityCode)
     console.error('Error:', error.message);
   });
 
-  const station = '51457'; // Replace with the desired stationId
+  const station = '5251'; // Replace with the desired stationId
   const annee = '2023'
   const mois = '03'
   const jour = '05'
-  fetchClimateData(station,annee,mois,jour)
+  fetchClimateDay(station,annee,mois,jour)
   .then(data => {
     console.log('Weather aujourdhui:', data);
   })
   .catch(error => {
     console.error('Error:', error.message);
-  });
+  }); */
 
 
 // Route to handle AJAX requests
@@ -72,7 +70,7 @@ app.post('/ajax_endpoint', async (req, res) => {
 });
 
 //Retourne prévision pour la journée actuelle
-async function fetchWeatherData(code) {
+async function fetchCurrentWeather(code) {
   try {
     const rssUrl = `https://meteo.gc.ca/rss/city/${code}_f.xml`;
     const response = await axios.get(rssUrl);
@@ -82,8 +80,8 @@ async function fetchWeatherData(code) {
     throw new Error('Failed to fetch weather data');
   }
 }
-
-async function fetchClimateData(stationId, year, month, day) {
+//Retourne prévision pour la sation choisie durant le jour choisi (for some reason renvoie le moi au complet meme avec le lien exemple du prof)
+async function fetchClimateDay(stationId, year, month, day) {
   try {
       const climateUrl = `https://climate.weather.gc.ca/climate_data/bulk_data_e.html?format=csv&stationID=${stationId}&Year=${year}&Month=${month}&Day=${day}&timeframe=1&submit=%20Download+Data`;
       const response = await fetch(climateUrl);
