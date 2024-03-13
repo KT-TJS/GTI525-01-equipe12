@@ -42,6 +42,7 @@
         <div class="stationDataNav">
             <button class="stationDataNavButton" data-type-view="Data">Données</button>
             <button class="stationDataNavButton" data-type-view="Stats">Statistiques</button>
+            <button class="stationDataNavButton" data-type-view="Info">Informations journalières historiques</button>
         </div>
         <div class="infoHolder" data-type-area="Data">
             <div class="infoView" id="DataView">
@@ -53,13 +54,19 @@
                 </div>
             </div>
             <div class="infoView" id="StatsView">
-            <div class="stats">
-                <h4>Statistiques Globales</h4>
-                <div class="meteoDataStatGlob">
+                <div class="stats">
+                    <h4>Statistiques Globales</h4>
+                    <div class="meteoDataStatGlob">
+                    </div>
+                    <h4>Statistiques par Mois</h4>
+                    <div class="meteoDataStat">
+                    </div>
                 </div>
-                <h4>Statistiques par Mois</h4>
-                <div class="meteoDataStat">
-                </div>
+            </div>
+            <div class="infoView" id="InfoView">
+                <h4>Informations journalières historiques</h4>
+                <div class="dailyInfo">
+                    <input type="date" id="dailyInfoDateSelection">
                 </div>
             </div>
         </div>
@@ -79,24 +86,24 @@
 </body>
 
 
-  <script src="ressources/globalVars.js"></script>
-  <script src="Lab1_CSV/Station Inventory EN.csv.js"></script>
-  <script src="Lab1_CSV/118.csv.js"></script>
-  <script src="Lab1_CSV/1865.csv.js"></script>
-  <script src="Lab1_CSV/2205.csv.js"></script>
-  <script src="Lab1_CSV/3002.csv.js"></script>
-  <script src="Lab1_CSV/3328.csv.js"></script>
-  <script src="Lab1_CSV/3698.csv.js"></script>
-  <script src="Lab1_CSV/4337.csv.js"></script>
-  <script src="Lab1_CSV/4789.csv.js"></script>
-  <script src="Lab1_CSV/4932.csv.js"></script>
-  <script src="Lab1_CSV/5097.csv.js"></script>
-  <script src="Lab1_CSV/5251.csv.js"></script>
-  <script src="Lab1_CSV/5415.csv.js"></script>
-  <script src="Lab1_CSV/6207.csv.js"></script>
-  <script src="Lab1_CSV/6358.csv.js"></script>
-  <script src="Lab1_CSV/6633.csv.js"></script>
-  <script src="Lab1_CSV/6720.csv.js"></script>
-  <script src="ressources/loader.js"></script>
-  <script src="ressources/init.js"></script>
+<script src="ressources/globalVars.js"></script>
+<script src="Lab1_CSV/Station Inventory EN.csv.js"></script>
+<script src="Lab1_CSV/118.csv.js"></script>
+<script src="Lab1_CSV/1865.csv.js"></script>
+<script src="Lab1_CSV/2205.csv.js"></script>
+<script src="Lab1_CSV/3002.csv.js"></script>
+<script src="Lab1_CSV/3328.csv.js"></script>
+<script src="Lab1_CSV/3698.csv.js"></script>
+<script src="Lab1_CSV/4337.csv.js"></script>
+<script src="Lab1_CSV/4789.csv.js"></script>
+<script src="Lab1_CSV/4932.csv.js"></script>
+<script src="Lab1_CSV/5097.csv.js"></script>
+<script src="Lab1_CSV/5251.csv.js"></script>
+<script src="Lab1_CSV/5415.csv.js"></script>
+<script src="Lab1_CSV/6207.csv.js"></script>
+<script src="Lab1_CSV/6358.csv.js"></script>
+<script src="Lab1_CSV/6633.csv.js"></script>
+<script src="Lab1_CSV/6720.csv.js"></script>
+<script src="ressources/loader.js"></script>
+<script src="ressources/init.js"></script>
 </html>

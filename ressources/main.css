@@ -236,9 +236,19 @@ header, footer {
 
 }
 
-.infoHolder[data-type-area="Data"] #StatsView, .infoHolder[data-type-area="Stats"] #DataView {
+.infoHolder:not([data-type-area="Stats"]) #StatsView, .infoHolder:not([data-type-area="Data"]) #DataView {
 
     display: none;
+
+}
+
+
+
+/*Informations journalières*/
+
+#StationDateSelectionForm.StationDateSelectionFormInvisible{
+
+    display:none;
 
 }
 

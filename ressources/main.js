@@ -22,17 +22,12 @@ document.addEventListener("DOMContentLoaded", function () {
             if(e.target.parentElement.classList.contains("active")&&e.target.parentElement===stationsList[i]){
                 stationsList[i].classList.toggle("close");
 
-
             }
             else{
             document.querySelectorAll(".active").forEach(function (item) {
 
-
-
                 item.classList.remove("active");
                 item.classList.remove("close");
-
-
 
             });
             stationsList[i].classList.add("active");
@@ -60,7 +55,18 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
 
+
+//TODO ajouter le callback pour l'event listener de la section Info journalières ici. À faire pour T2.4
+    document.querySelector("#dailyInfoDateSelection").addEventListener("change",function(){
+
+
+
+    })
+
 });
+
+
+
 
 
 /*Toggle data-type-area*/
@@ -71,12 +77,17 @@ class InfoHolder {
 
         this.infoHolderElement = document.querySelector(".infoHolder");
         this.buttonNavList = document.querySelectorAll(".stationDataNavButton");
-
-
     }
 
     changeToView(areaType = "Data") {
         this.infoHolderElement.setAttribute("data-type-area", areaType);
+        switch (areaType){
+            case "Info":
+                document.querySelector("#StationDateSelectionForm").classList.add("StationDateSelectionFormInvisible");
+                break;
+            default:
+                document.querySelector("#StationDateSelectionForm").classList.remove("StationDateSelectionFormInvisible");
+        }
     }
 
     init() {
