@@ -1,15 +1,11 @@
 document.addEventListener("DOMContentLoaded", function () {
 
     /*Section ajustement des tailles*/
-
+    let infoHolderElem=document.querySelector(".infoHolder");
     let tableDataHolder=document.querySelector("#DataView .meteoData");
-    tableDataHolder.style.maxHeight=window.innerHeight-tableDataHolder.getBoundingClientRect().y-130+"px";
-    let tableDataHolder2=document.querySelector("#StatsView .meteoDataStat");
-    tableDataHolder2.style.maxHeight=window.innerHeight-tableDataHolder.getBoundingClientRect().y-130+"px";
-    let tableDataHolder3=document.querySelector("#StatsView .meteoDataStatGlob");
-    tableDataHolder3.style.maxHeight=window.innerHeight-tableDataHolder.getBoundingClientRect().y-130+"px";
+    tableDataHolder.style.maxHeight=window.innerHeight-infoHolderElem.getBoundingClientRect().y-130+"px";
     let tableDataHolder4=document.querySelector("#StatsView .stats");
-    tableDataHolder4.style.maxHeight=window.innerHeight-tableDataHolder.getBoundingClientRect().y-100+"px";
+    tableDataHolder4.style.maxHeight=window.innerHeight-infoHolderElem.getBoundingClientRect().y-130+"px";
 
     let infoHolder = new InfoHolder();
     infoHolder.init();

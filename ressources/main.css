@@ -27,6 +27,7 @@ header {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    height:140px;
 }
 
 header, footer {
@@ -236,7 +237,7 @@ header, footer {
 
 }
 
-.infoHolder:not([data-type-area="Stats"]) #StatsView, .infoHolder:not([data-type-area="Data"]) #DataView {
+.infoHolder:not([data-type-area="Stats"]) #StatsView, .infoHolder:not([data-type-area="Data"]) #DataView,.infoHolder:not([data-type-area="Info"]) #InfoView {
 
     display: none;
 
@@ -260,6 +261,7 @@ footer {
     left: 0;
     display: flex;
     width: 100vw;
+    height:130px;
     justify-content: center;
     align-items: center;
     padding: 20px 30px;
