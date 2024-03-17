@@ -56,15 +56,48 @@ document.addEventListener("DOMContentLoaded", function () {
 
     }
 
+    // pour générer les 24heures de la journée dans dailyInfo
+     var tbody = document.getElementById("weatherData");
+     for (var i = 0; i < 24; i++) {
+         var row = document.createElement("tr");
+         var timeCell = document.createElement("td");
+         timeCell.textContent = i + ":00"; // Ajouter l'heure
+         row.appendChild(timeCell);
+         tbody.appendChild(row);
+     }
 
 
 //TODO ajouter le callback pour l'event listener de la section Info journalières ici. À faire pour T2.4
-    document.querySelector("#dailyInfoDateSelection").addEventListener("change",function(){
+    document.querySelector("#dailyInfoDateSelection").addEventListener("change",async function(){
         const selectedDate = this.value;
         const dateObj = new Date(selectedDate);
         console.log(selectedDate);
         console.log(dateObj.getMonth());
-
+        const day = dateObj.getDate()+1
+        const month = dateObj.getMonth()+1
+        const year = dateObj.getFullYear()
+        var data = null;
+        try {
+            // Your code that references currentStation
+            console.log(currentStation)
+            // Make an AJAX request to your backend
+            const queryString = `?stationId=${currentStation}&year=${year}&month=${month}&day=${day}`;
+            fetch(`/fetchClimateDay${queryString}`)
+            .then(response => response.text())
+            .then(result => {
+                data = result;
+            })
+            .catch(error => console.error('Error:', error));
+        } catch (error) {
+            if (error instanceof ReferenceError) {
+                // Handle the ReferenceError
+                console.error("currentStation is not defined.");
+            } else {
+                // Handle other types of errors
+                console.error("An error occurred:", error);
+            }
+        }
+        console.log(data);
     })
 
 });

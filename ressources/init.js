@@ -123,6 +123,10 @@ function loadStationDetails(stationId,name) {
     const infoTitle = document.querySelector('.stationInfoTitle');
     const buttonReset = document.querySelector('.allData');
     infoTitle.textContent = name;
+
+    //put the current "active" stationId in a global variable so it's accessible everywhere which station is active (used in main.js)  
+    window.currentStation = stationId
+    
     buttonReset.addEventListener('click', function(event){
         event.preventDefault();
         loadStationDetails(stationId,name)});

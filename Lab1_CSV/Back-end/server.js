@@ -103,3 +103,9 @@ app.get('/', (req, res) => {
 //ouvre le html quand le server est parti
  res.sendFile(path.join(__dirname, '..', '..', 'index.html'));
 });
+
+app.get('/fetchClimateDay', (req, res) => {
+  const { stationId, year, month, day } = req.query;
+  const result = fetchClimateDay(req.query.parameter);
+  res.send(result);
+});
