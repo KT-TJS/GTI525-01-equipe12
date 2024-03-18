@@ -43,6 +43,7 @@
             <button class="stationDataNavButton" data-type-view="Data">Données</button>
             <button class="stationDataNavButton" data-type-view="Stats">Statistiques</button>
             <button class="stationDataNavButton" data-type-view="Info">Informations journalières historiques</button>
+            <button class="stationDataNavButton" data-type-view="Feed">Prévision</button>
         </div>
         <div class="infoHolder" data-type-area="Data">
             <div class="infoView" id="DataView">
@@ -51,6 +52,10 @@
                     <table>
 
                     </table>
+                </div>
+            <div class="infoView" id="FeedView">
+                <div class="feedData">
+
                 </div>
             </div>
             <div class="infoView" id="StatsView">
@@ -67,7 +72,7 @@
                 <h4>Informations journalières historiques</h4>
                 <div class="dailyInfo">
                     <input type="date" id="dailyInfoDateSelection">
-                    <button class="stationDataNavButton">Rechercher</button>
+                    <button class="stationDataNavButton" data-type-view="Info">Rechercher</button>
                     <table>
                         <thead>
                             <tr>

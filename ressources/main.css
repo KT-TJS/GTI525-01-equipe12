@@ -237,7 +237,7 @@ header, footer {
 
 }
 
-.infoHolder:not([data-type-area="Stats"]) #StatsView, .infoHolder:not([data-type-area="Data"]) #DataView,.infoHolder:not([data-type-area="Info"]) #InfoView {
+.infoHolder:not([data-type-area="Stats"]) #StatsView,.infoHolder:not([data-type-area="Feed"]) #FeedView, .infoHolder:not([data-type-area="Data"]) #DataView,.infoHolder:not([data-type-area="Info"]) #InfoView {
 
     display: none;
 

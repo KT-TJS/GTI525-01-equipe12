@@ -31,7 +31,7 @@ function processStations(stationsObject, stationInventoryArray) {
     });
     temp = [];
     temp.push(stations[stationIds[0]][0]);
-    populateMeteoDataTable(temp,true);
+    //populateMeteoDataTable(temp,true);
 
 }
 function initializeStationList() {
@@ -119,7 +119,7 @@ function initializeStationList() {
 //USES GLOBAL STATIONS
 function loadStationDetails(stationId,name) {
     initPlageDate(stations[stationId]);
-    intermediaryFunction(stations[stationId]);
+    intermediaryFunction(stations[stationId],stationId);
     const infoTitle = document.querySelector('.stationInfoTitle');
     const buttonReset = document.querySelector('.allData');
     infoTitle.textContent = name;
@@ -201,11 +201,12 @@ function initPlageDate(dataList){
 
 
 }
-function intermediaryFunction(dataList){
+function intermediaryFunction(dataList,stationId){
 
     populateMeteoDataTable(dataList);
     populateMeteoStatTable(dataList);
     populateMeteoMonthTable(dataList);
+    populateFeedTable(station_id);
 
 }
 //DataList is the provided MeteoStation from the click event found in the loadStationDetails
@@ -675,4 +676,59 @@ function populateMeteoStatTable(dataList,isCreation=false) {
 
         
     
+}
+
+function populateFeedTable(station_id){
+    console.log("Populating station number "+station_id)
+    let xmlData ;
+
+    fetch('/currentWeather?code='+station_id)
+  .then(response => response.json())
+  .then(data => {
+    if (data.success) {
+      console.log('Weather data:', data.data);
+      xmlData
+    } else {
+      console.error('Failed to fetch weather data:', data.error);
+    }
+  })
+  .catch(error => {
+    console.error('Error fetching weather data:', error);
+  });
+    // Parse the XML data
+    const parser = new DOMParser();
+    const xmlDoc = parser.parseFromString(xmlData, "text/xml");
+
+    // Create a new table
+    const table = document.createElement("table");
+    table.style.width = '100%';
+    table.setAttribute('border', '1');
+
+    // Add table header
+    let tr = table.insertRow(-1);
+    let headers = ["Title", "Summary"];
+    for(let i = 0; i < headers.length; i++) {
+        let th = document.createElement("th");
+        th.innerHTML = headers[i];
+        tr.appendChild(th);
+    }
+
+    // Iterate through each <entry> in the XML
+    const entries = xmlDoc.getElementsByTagName("entry");
+    for (let entry of entries) {
+        let row = table.insertRow(-1);
+        let title = entry.getElementsByTagName("title")[0].textContent;
+        let summary = entry.getElementsByTagName("summary")[0].textContent;
+
+        // Insert new cells (<td>) at the 1st and 2nd position of the "new" <tr> element
+        let cell1 = row.insertCell(0);
+        let cell2 = row.insertCell(1);
+
+        // Add some text to the new cells
+        cell1.innerHTML = title;
+        cell2.innerHTML = summary;
+    }
+
+    // Append the table to the div with id "currentWeather"
+    document.getElementByClass("feedData").appendChild(table);
 }

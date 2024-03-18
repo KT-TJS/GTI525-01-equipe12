@@ -85,12 +85,8 @@ app.get('/currentWeather', async (req, res) => {
 //Retourne prévision pour la journée actuelle
 async function fetchCurrentWeather(code) {
   try {
-    let rssUrl=0;
-    stationMappingData.foreach(data => {
-      data.station_ids.foreach(stationId => {
-        if(stationId==code) rssUrl = data.rss_feed;
-      });
-      });
+    let rssUrl=findRssFeedByStationId(code);
+    console.log(rssUrl);
     //const rssUrl = `https://meteo.gc.ca/rss/city/${code}_f.xml`;
     const response = await axios.get(rssUrl);
     return response.data;
@@ -98,6 +94,20 @@ async function fetchCurrentWeather(code) {
     console.error('Error fetching weather data:', error);
     throw new Error('Failed to fetch weather data');
   }
+}
+function findRssFeedByStationId(data) {
+  console.log('GOT HERE')
+  for (const key in stationMappingData) {
+      if (stationMappingData.hasOwnProperty(key)) {
+          const stationInfo = stationMappingData[key]
+          console.log('Comparing: '+data +" with "+ stationInfo.station_ids)
+          //console.log(typeof(stationInfo.station_ids))
+          for(let i=0;i<stationInfo.station_ids.length;i++){
+            if(data==stationInfo.station_ids[i])return stationInfo.rss_feed;
+          }
+      }
+  }
+  return null; // Return null if no matching station ID is found
 }
 //Retourne prévision pour la sation choisie durant le jour choisi (for some reason renvoie le moi au complet meme avec le lien exemple du prof)
 async function fetchClimateDay(stationId, year, month, day) {
