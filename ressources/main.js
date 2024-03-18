@@ -230,11 +230,17 @@ class InfoHolder {
     changeToView(areaType = "Data") {
         this.infoHolderElement.setAttribute("data-type-area", areaType);
         switch (areaType){
+            case "Feed":
+                document.querySelector("#StationDateSelectionForm").classList.add("StationDateSelectionFormInvisible");
+                document.querySelector("#pageDate").classList.add("StationDateSelectionFormInvisible");
+                break;
             case "Info":
                 document.querySelector("#StationDateSelectionForm").classList.add("StationDateSelectionFormInvisible");
+                document.querySelector("#pageDate").classList.add("StationDateSelectionFormInvisible");
                 break;
             default:
                 document.querySelector("#StationDateSelectionForm").classList.remove("StationDateSelectionFormInvisible");
+                document.querySelector("#pageDate").classList.remove("StationDateSelectionFormInvisible");
         }
     }
 

@@ -26,7 +26,7 @@
     <section class="specifications">
         <div class="stationInfoSection">
             <span class="stationInfoTitle">--</span>
-            <h4>Plage de dates</h4>
+            <h4 id='pageDate'>Plage de dates</h4>
             <form action="#" id="StationDateSelectionForm">
                 <span>De:</span>
                 <select name="stationStartTimeYear" id="stationStartTimeYear"></select>
@@ -72,7 +72,7 @@
             </div>
             <div class="infoView" id="InfoView">
                 <h4>Informations journalières historiques</h4>
-                <input type="date" id="dailyInfoDateSelection">
+                <input type="date" id="dailyInfoDateSelection" max="">
                 <div class="dailyInfo">
                     <table>
                         <thead>
