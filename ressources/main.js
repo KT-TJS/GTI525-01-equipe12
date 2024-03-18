@@ -129,9 +129,9 @@ function showError(errorMessage) {
     errorContainer.appendChild(errorElement);
   
     // Remove error message after 5 seconds (5000 milliseconds)
-    setTimeout(() => {
-      errorElement.remove();
-    }, 5000); // Adjust duration as needed
+    // setTimeout(() => {
+    //   errorElement.remove();
+    // }, 5000); // Adjust duration as needed
   }
 
 function dailyInfo(data, day) {
