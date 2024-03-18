@@ -27,6 +27,7 @@ header {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    height:140px;
 }
 
 header, footer {
@@ -36,6 +37,26 @@ header, footer {
 }
 
 /*Liste Stations*/
+
+.stationList{
+
+    max-height: calc(100vh - 141px - 130px);
+    overflow: auto;
+
+}
+
+.stationList::-webkit-scrollbar{
+    background-color: #ffffff00;
+}
+.stationList::-webkit-scrollbar-track{
+
+}
+
+.stationList::-webkit-scrollbar-thumb{
+    background-color: #61E786;
+    border-radius: 20px;
+    border: 2px solid #61E78600;
+}
 
 .stationList > li {
 
@@ -109,11 +130,11 @@ header, footer {
 
 }
 
-.stationList > li.active .stationSubList {
+.stationList > li.active:not(.close) .stationSubList {
     max-height: 1000px;
 }
 
-.stationList > li:not(.active) .stationSubList {
+.stationList > li:not(.active) .stationSubList,.stationList > li.active.close .stationSubList {
     overflow: hidden;
     max-height: 0;
 
@@ -148,6 +169,7 @@ header, footer {
     display: grid;
     grid-template-columns: auto 1100px;
     grid-column-gap: 15px;
+    max-height: calc(100vh - 141px - 130px);
 
 }
 
@@ -172,32 +194,74 @@ header, footer {
 /*Section Données météo*/
 
 .meteoData {
-
     overflow: scroll;
     max-width: 1100px;
-
 }
 
 .meteoData th {
     border: 2px solid;
     white-space: nowrap;
     padding: 5px 2px;
+    position:sticky;
+    top:0;
+    background-color: white;
+}
+.meteoDataStat {
+    max-width: 1100px;
 }
 
-.infoHolder[data-type-area="Data"] #StatsView, .infoHolder[data-type-area="Stats"] #DataView {
+.meteoDataStat th {
+    border: 2px solid;
+    white-space: nowrap;
+    padding: 5px 2px;
+    position:relative;
+    top:0;
+    background-color: white;
+}
+.meteoDataStatGlob {
+    max-width: 1100px;
+}
+.stats{
+    overflow: scroll;
+}
+.meteoDataStatGlob th {
+    border: 2px solid;
+    white-space: nowrap;
+    padding: 5px 2px;
+    position:relative;
+    top:0;
+    background-color: white;
+}
+.infoHolder table tbody tr:nth-child(2n){
+    background-color: #72727272;
+
+}
+
+.infoHolder:not([data-type-area="Stats"]) #StatsView, .infoHolder:not([data-type-area="Data"]) #DataView,.infoHolder:not([data-type-area="Info"]) #InfoView {
 
     display: none;
+
+}
+
+
+
+/*Informations journalières*/
+
+#StationDateSelectionForm.StationDateSelectionFormInvisible{
+
+    display:none;
 
 }
 
 /*Bas de page*/
 
 footer {
-    position: absolute;
+    position: fixed;
     bottom: 0;
     left: 0;
     display: flex;
     width: 100vw;
+    height:130px;
     justify-content: center;
     align-items: center;
     padding: 20px 30px;

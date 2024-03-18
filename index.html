@@ -22,29 +22,10 @@
 
 <div class="contentHolder">
     <ul class="stationList">
-        <!--Je met ici un template de comment la liste des stations doit être affichée.-->
-        <!-- <li id="AllStations">
-            <span>Toutes les stations</span>
-        </li>
-        <li class="">
-            <span>Province 1</span>
-            <ul class="stationSubList">
-                <li>Station 1</li>
-                <li>Station 2</li>
-            </ul>
-        </li>
-        <li class="active">
-            <span>Province 2</span>
-            <ul class="stationSubList">
-                <li class="active">Station 3</li>
-                <li>Station 4</li>
-            </ul>
-        </li> -->
-
     </ul>
     <section class="specifications">
         <div class="stationInfoSection">
-            <span class="stationInfoTitle"></span>
+            <span class="stationInfoTitle">--</span>
             <h4>Plage de dates</h4>
             <form action="#" id="StationDateSelectionForm">
                 <span>De:</span>
@@ -61,55 +42,48 @@
         <div class="stationDataNav">
             <button class="stationDataNavButton" data-type-view="Data">Données</button>
             <button class="stationDataNavButton" data-type-view="Stats">Statistiques</button>
+            <button class="stationDataNavButton" data-type-view="Info">Informations journalières historiques</button>
         </div>
         <div class="infoHolder" data-type-area="Data">
             <div class="infoView" id="DataView">
                 <h4>Données météo</h4>
                 <div class="meteoData">
                     <table>
-                        <tr>
-                            <!-- <th>Année</th>
-                            <th>Mois</th>
-                            <th>Température maximale moyenne</th>
-                            <th>Température minimale moyenne</th>
-                            <th>Température moyenne</th>
-                            <th>Température maximale enregistrée</th>
-                            <th>Température minimale enregistrée</th>
-                            <th>Pluie totale</th>
-                            <th>Neige Totale</th>
-                            <th>Vitesse du vent maximale</th> -->
-                        </tr>
+
                     </table>
                 </div>
             </div>
             <div class="infoView" id="StatsView">
-                <h4>Statistiques globales</h4>
-                <div class="meteoData">
-                    <table>
-                        <tr>
-                            <th>Donnée</th>
-                            <th>Valeur maximale</th>
-                            <th>Année</th>
-                            <th>Mois</th>
-                            <th>Valeur minimale</th>
-                            <th>Année</th>
-                            <th>Mois</th>
-                        </tr>
-                    </table>
+                <div class="stats">
+                    <h4>Statistiques Globales</h4>
+                    <div class="meteoDataStatGlob">
+                    </div>
+                    <h4>Statistiques par Mois</h4>
+                    <div class="meteoDataStat">
+                    </div>
                 </div>
-                <h4>Statistiques par mois</h4>
-                <h5>Mois</h5>
-                <div class="meteoData">
+            </div>
+            <div class="infoView" id="InfoView">
+                <h4>Informations journalières historiques</h4>
+                <div class="dailyInfo">
+                    <input type="date" id="dailyInfoDateSelection">
+                    <button class="stationDataNavButton">Rechercher</button>
                     <table>
-                        <tr>
-                            <th>Donnée</th>
-                            <th>Valeur maximale</th>
-                            <th>Année</th>
-
-                            <th>Valeur minimale</th>
-                            <th>Année</th>
-
-                        </tr>
+                        <thead>
+                            <tr>
+                                <th>Temps de la journée</th>
+                                <th>Température réelle</th>
+                                <th>Température ressentie</th>
+                                <th>Météo</th>
+                                <th>Humidité</th>
+                                <th>Direction du vent</th>
+                                <th>Vitesse du vent (km/h)</th>
+                                <th>Pression atmosphérique</th>
+                            </tr>
+                        </thead>
+                        <tbody id="weatherData">
+                            <!-- Les données seront insérées ici dynamiquement avec JavaScript -->
+                        </tbody>
                     </table>
                 </div>
             </div>
@@ -130,46 +104,24 @@
 </body>
 
 
-  <script src="ressources/globalVars.js"></script>
-  <script src="Lab1_CSV/Station Inventory EN.csv.js"></script>
-  <script src="Lab1_CSV/118.csv.js"></script>
-  <script src="Lab1_CSV/1865.csv.js"></script>
-  <script src="Lab1_CSV/2205.csv.js"></script>
-  <script src="Lab1_CSV/3002.csv.js"></script>
-  <script src="Lab1_CSV/3328.csv.js"></script>
-  <script src="Lab1_CSV/3698.csv.js"></script>
-  <script src="Lab1_CSV/4337.csv.js"></script>
-  <script src="Lab1_CSV/4789.csv.js"></script>
-  <script src="Lab1_CSV/4932.csv.js"></script>
-  <script src="Lab1_CSV/5097.csv.js"></script>
-  <script src="Lab1_CSV/5251.csv.js"></script>
-  <script src="Lab1_CSV/5415.csv.js"></script>
-  <script src="Lab1_CSV/6207.csv.js"></script>
-  <script src="Lab1_CSV/6358.csv.js"></script>
-  <script src="Lab1_CSV/6633.csv.js"></script>
-  <script src="Lab1_CSV/6720.csv.js"></script>
-  
-  <script type="text/javascript">
-      //Setup de la variable du fichier avec toutes les stations "Station Inventory EN.csv.js"
-      var stationInventoryArray = StationInventoryEN.split('\n').map(row => row.split(',')).slice(4);
-      stationInventoryArray.pop();
-      
-      //Setup pour tous les différentes stations en une variable contenant les différentes stations
-      for (var key in stations) {
-          if (stations.hasOwnProperty(key)) {
-              stations[key] = stations[key].split('\n').map(row => row.split(',')).slice(1);
-              stations[key].pop();
-            }
-        }
-    
-        //Regarder le résultat de ceci dans un navigateur pour voir le layout.
-        console.log(stationInventoryArray);
-        console.log(stations);
-        
-        //Les variables qui sont misent global pour les utiliser dans d'autres fichier javasccript
-        window.stationInventoryArray = stationInventoryArray;
-        window.stations = stations;
-    </script>
-    <script src="ressources/init.js"></script>
-    <script src="ressources/onclickEvents.js"></script>
+<script src="ressources/globalVars.js"></script>
+<script src="Lab1_CSV/Station Inventory EN.csv.js"></script>
+<script src="Lab1_CSV/118.csv.js"></script>
+<script src="Lab1_CSV/1865.csv.js"></script>
+<script src="Lab1_CSV/2205.csv.js"></script>
+<script src="Lab1_CSV/3002.csv.js"></script>
+<script src="Lab1_CSV/3328.csv.js"></script>
+<script src="Lab1_CSV/3698.csv.js"></script>
+<script src="Lab1_CSV/4337.csv.js"></script>
+<script src="Lab1_CSV/4789.csv.js"></script>
+<script src="Lab1_CSV/4932.csv.js"></script>
+<script src="Lab1_CSV/5097.csv.js"></script>
+<script src="Lab1_CSV/5251.csv.js"></script>
+<script src="Lab1_CSV/5415.csv.js"></script>
+<script src="Lab1_CSV/6207.csv.js"></script>
+<script src="Lab1_CSV/6358.csv.js"></script>
+<script src="Lab1_CSV/6633.csv.js"></script>
+<script src="Lab1_CSV/6720.csv.js"></script>
+<script src="ressources/loader.js"></script>
+<script src="ressources/init.js"></script>
 </html>
