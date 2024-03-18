@@ -57,13 +57,15 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
 //TODO ajouter le callback pour l'event listener de la section Info journalières ici. À faire pour T2.4
-    document.querySelector("#dailyInfoDateSelection").addEventListener("change",async function(){
+    document.querySelector("#dailyInfoDateSelection").addEventListener("change",function(){
         const selectedDate = this.value;
         const dateObj = new Date(selectedDate);
         const day = dateObj.getDate()+1;
         const month = dateObj.getMonth()+1;
         const year = dateObj.getFullYear();
-        getDailyInfo();
+        if(selectedDate != ""){
+            getDailyInfo();
+        }
     })
 
 });
