@@ -751,10 +751,10 @@ function populateWithXML(xmlData){
     // Display the extracted data
     
     info.innerHTML = `
-        <p><strong>Conditions actuelles:</strong> ${currentCondition}</p>
-        <p><strong>Last updated:</strong> ${lastUpdatedTime}</p>
-        <p><strong>Meteo Site:</strong> <a href="${meteoLink}">${meteoLink}</a></p>
-        <p><strong>Current Watches or Warnings:</strong> ${veilleAlerte}</p>
+    <p><strong>Meteo Site:</strong> <a href="${meteoLink}">${meteoLink}</a></p>
+    <p><strong>Last updated:</strong> ${lastUpdatedTime}</p>
+    <p><strong>Current Watches or Warnings:</strong> ${veilleAlerte}</p>
+    <p><strong>Conditions actuelles:</strong> ${currentCondition}</p>
     `;
     // Iterate through each <entry> in the XML
     const entries = xmlDoc.getElementsByTagName("entry");

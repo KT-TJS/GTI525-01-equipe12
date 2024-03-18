@@ -227,6 +227,9 @@ header, footer {
 .dailyInfo{
     overflow:scroll;
 }
+.feedData{
+    overflow:scroll;
+}
 .meteoDataStatGlob th {
     border: 2px solid;
     white-space: nowrap;
