@@ -4,6 +4,8 @@ document.addEventListener("DOMContentLoaded", function () {
     let infoHolderElem=document.querySelector(".infoHolder");
     let tableDataHolder=document.querySelector("#DataView .meteoData");
     tableDataHolder.style.maxHeight=window.innerHeight-infoHolderElem.getBoundingClientRect().y-130+"px";
+    let tableDataHolder2=document.querySelector("#FeedView .feedData");
+    tableDataHolder2.style.maxHeight=window.innerHeight-infoHolderElem.getBoundingClientRect().y-130+"px";
     let tableDataHolder4=document.querySelector("#StatsView .stats");
     tableDataHolder4.style.maxHeight=window.innerHeight-infoHolderElem.getBoundingClientRect().y-130+"px";
 

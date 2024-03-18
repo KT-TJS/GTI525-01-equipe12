@@ -69,16 +69,46 @@ app.post('/ajax_endpoint', async (req, res) => {
   }
 });
 
+app.get('/currentWeather', async (req, res) => {
+  try {
+    // Assuming the city code is passed as a query parameter
+    const { code } = req.query;
+    if (!code) {
+      return res.status(400).json({ success: false, error: 'City code is required' });
+    }
+    const weatherData = await fetchCurrentWeather(code);
+    res.json({ success: true, data: weatherData });
+  } catch (error) {
+    console.error('Error fetching current weather:', error);
+    res.status(500).json({ success: false, error: 'Failed to fetch current weather data' });
+  }
+});
 //Retourne prévision pour la journée actuelle
 async function fetchCurrentWeather(code) {
   try {
-    const rssUrl = `https://meteo.gc.ca/rss/city/${code}_f.xml`;
+    let rssUrl=findRssFeedByStationId(code);
+    console.log(rssUrl);
+    //const rssUrl = `https://meteo.gc.ca/rss/city/${code}_f.xml`;
     const response = await axios.get(rssUrl);
     return response.data;
   } catch (error) {
     console.error('Error fetching weather data:', error);
     throw new Error('Failed to fetch weather data');
   }
+}
+function findRssFeedByStationId(data) {
+  
+  for (const key in stationMappingData) {
+      if (stationMappingData.hasOwnProperty(key)) {
+          const stationInfo = stationMappingData[key]
+          //console.log('Comparing: '+data +" with "+ stationInfo.station_ids)
+          //console.log(typeof(stationInfo.station_ids))
+          for(let i=0;i<stationInfo.station_ids.length;i++){
+            if(data==stationInfo.station_ids[i])return stationInfo.rss_feed;
+          }
+      }
+  }
+  return null; // Return null if no matching station ID is found
 }
 //Retourne prévision pour la sation choisie durant le jour choisi (for some reason renvoie le moi au complet meme avec le lien exemple du prof)
 async function fetchClimateDay(stationId, year, month, day) {
