@@ -141,10 +141,13 @@ app.get('/fetchClimateDay', async (req, res) => {
   const { stationId, year, month, day } = req.query;
   try {
     const code = findStationCode(stationId);
+    let result = null;
+    let parsedData = null;
+    let hourOfDayArray = null;
     for (const stationId of stationMappingData[code].station_ids) {
-      const result = await fetchClimateDay(stationId, year, month, day);
-      const parsedData = parseStringIntoArray(result);
-      const hourOfDayArray = getDayArrayFromMonthArray(parsedData, day);
+      result = await fetchClimateDay(stationId, year, month, day);
+      parsedData = parseStringIntoArray(result);
+      hourOfDayArray = getDayArrayFromMonthArray(parsedData, day);
 
       if (hourOfDayArray && hourOfDayArray.length > 0) {
         if (hourOfDayArray[0].hasOwnProperty('9')) {
@@ -159,6 +162,7 @@ app.get('/fetchClimateDay', async (req, res) => {
           console.error("hourOfDayArray is either undefined or empty");
       }
     }
+    console.log("result foireux : " + hourOfDayArray);
     res.status(500).json({ success: false, error: 'Failed to fetch climate data' });
   } catch (error) {
     console.error('Error fetching climate data:', error);

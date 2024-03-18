@@ -126,7 +126,13 @@ function loadStationDetails(stationId,name) {
 
     //put the current "active" stationId in a global variable so it's accessible everywhere which station is active (used in main.js)  
     window.currentStation = stationId;
-    getDailyInfo();
+    var tbody = document.getElementById("weatherData");
+
+    var dateElement = document.getElementById("dailyInfoDateSelection");
+    const selectedDate = dateElement.value;
+    if(selectedDate != ""){
+        getDailyInfo();
+    }
     
     buttonReset.addEventListener('click', function(event){
         event.preventDefault();
