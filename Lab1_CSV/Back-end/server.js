@@ -85,8 +85,7 @@ async function fetchClimateDay(stationId, year, month, day) {
   try {
       const climateUrl = `https://climate.weather.gc.ca/climate_data/bulk_data_e.html?format=csv&stationID=${stationId}&Year=${year}&Month=${month}&Day=${day}&timeframe=1&submit=%20Download+Data`;
       const response = await axios.get(climateUrl);
-      console.log(response.data)
-      return response;
+      return response.data;
   } catch (error) {
       console.error('Error fetching climate data:', error);
       throw new Error('Failed to fetch climate data');
@@ -105,8 +104,80 @@ app.get('/', (req, res) => {
  res.sendFile(path.join(__dirname, '..', '..', 'index.html'));
 });
 
-app.get('/fetchClimateDay', (req, res) => {
+app.get('/fetchClimateDay', async (req, res) => {
   const { stationId, year, month, day } = req.query;
-  const result = fetchClimateDay(req.query.parameter);
-  res.send(result);
+  try {
+    const code = findStationCode(stationId);
+    for (const stationId of stationMappingData[code].station_ids) {
+      const result = await fetchClimateDay(stationId, year, month, day);
+      const parsedData = parseStringIntoArray(result);
+      const hourOfDayArray = getDayArrayFromMonthArray(parsedData, day);
+
+      if (hourOfDayArray && hourOfDayArray.length > 0) {
+        if (hourOfDayArray[0].hasOwnProperty('9')) {
+            if (hourOfDayArray[0][9] != null) {
+                res.send(result);
+                return;
+            }
+        } else {
+            console.error("Property '9' does not exist in the first element of hourOfDayArray");
+        }
+      } else {
+          console.error("hourOfDayArray is either undefined or empty");
+      }
+    }
+    res.status(500).json({ success: false, error: 'Failed to fetch climate data' });
+  } catch (error) {
+    console.error('Error fetching climate data:', error);
+    res.status(500).json({ success: false, error: 'Failed to fetch climate data' });
+  }
 });
+
+// Function to find the station code based on station ID
+function findStationCode(stationId) {
+  const idToFind = parseInt(stationId);
+  for (const code in stationMappingData) {
+    const station = stationMappingData[code];
+    if (station.station_ids.includes(idToFind)) {
+      return code;
+    }
+  }
+  return null; // Station code not found for the given station ID
+}
+
+//transforme la reponse de l'api qui est en string en un array utilisable
+function parseStringIntoArray(data) {
+  const rows = data.split('\n');
+
+  // Initialize an array to hold parsed data
+  const parsedData = [];
+
+  // Iterate over rows
+  rows.forEach(row => {
+      // Split each row by comma to get columns
+      const columns = row.split(',');
+  
+      // Remove leading and trailing whitespace from each column
+      const trimmedColumns = columns.map(col => col.trim());
+  
+      // Push the trimmed columns to the parsedData array
+      parsedData.push(trimmedColumns);
+  });
+  return parsedData;
+}
+
+function getDayArrayFromMonthArray(parsedData, day) {
+  const filteredData = [];
+  for (let i = 0; i < parsedData.length; i++) {
+      const row = parsedData[i];
+      var timeLSTString;
+      if (row[7] !== undefined) {
+          timeLSTString = row[7].replace(/^"(.*)"$/, '$1');
+      }
+      const timeLST = parseFloat(timeLSTString);
+      if (timeLST == day) {
+          filteredData.push(row);
+      }
+  }
+  return filteredData;
+}

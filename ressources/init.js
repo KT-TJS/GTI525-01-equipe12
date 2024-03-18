@@ -125,7 +125,8 @@ function loadStationDetails(stationId,name) {
     infoTitle.textContent = name;
 
     //put the current "active" stationId in a global variable so it's accessible everywhere which station is active (used in main.js)  
-    window.currentStation = stationId
+    window.currentStation = stationId;
+    getDailyInfo();
     
     buttonReset.addEventListener('click', function(event){
         event.preventDefault();
