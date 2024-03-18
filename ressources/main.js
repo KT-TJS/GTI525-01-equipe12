@@ -83,11 +83,20 @@ document.addEventListener("DOMContentLoaded", function () {
             // Make an AJAX request to your backend
             const queryString = `?stationId=${currentStation}&year=${year}&month=${month}&day=${day}`;
             fetch(`/fetchClimateDay${queryString}`)
-            .then(response => response.text())
+            .then(response => {
+                // Vérifiez si la réponse est OK
+                if (!response.ok) {
+                    throw new Error('La requête a échoué.');
+                }
+                // Retournez le contenu de la réponse en tant que texte
+                return response.text();
+            })
             .then(result => {
                 data = result;
+                console.log("result : " + result);
             })
             .catch(error => console.error('Error:', error));
+            console.log(data);
         } catch (error) {
             if (error instanceof ReferenceError) {
                 // Handle the ReferenceError
@@ -97,7 +106,6 @@ document.addEventListener("DOMContentLoaded", function () {
                 console.error("An error occurred:", error);
             }
         }
-        console.log(data);
     })
 
 });

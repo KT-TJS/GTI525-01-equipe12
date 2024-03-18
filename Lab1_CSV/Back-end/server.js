@@ -85,7 +85,8 @@ async function fetchClimateDay(stationId, year, month, day) {
   try {
       const climateUrl = `https://climate.weather.gc.ca/climate_data/bulk_data_e.html?format=csv&stationID=${stationId}&Year=${year}&Month=${month}&Day=${day}&timeframe=1&submit=%20Download+Data`;
       const response = await axios.get(climateUrl);
-      return response.data;
+      console.log(response.data)
+      return response;
   } catch (error) {
       console.error('Error fetching climate data:', error);
       throw new Error('Failed to fetch climate data');
