@@ -8,6 +8,8 @@ document.addEventListener("DOMContentLoaded", function () {
     tableDataHolder2.style.maxHeight=window.innerHeight-infoHolderElem.getBoundingClientRect().y-130+"px";
     let tableDataHolder4=document.querySelector("#StatsView .stats");
     tableDataHolder4.style.maxHeight=window.innerHeight-infoHolderElem.getBoundingClientRect().y-130+"px";
+    let tableDataHolder5=document.querySelector("#InfoView .dailyInfo");
+    tableDataHolder5.style.maxHeight=window.innerHeight-infoHolderElem.getBoundingClientRect().y-130+"px";
 
     let infoHolder = new InfoHolder();
     infoHolder.init();
