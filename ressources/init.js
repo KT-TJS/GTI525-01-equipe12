@@ -119,10 +119,21 @@ function initializeStationList() {
 //USES GLOBAL STATIONS
 function loadStationDetails(stationId,name) {
     initPlageDate(stations[stationId]);
-    intermediaryFunction(stations[stationId]);
+    intermediaryFunction(stations[stationId],stationId);
     const infoTitle = document.querySelector('.stationInfoTitle');
     const buttonReset = document.querySelector('.allData');
     infoTitle.textContent = name;
+
+    //put the current "active" stationId in a global variable so it's accessible everywhere which station is active (used in main.js)  
+    window.currentStation = stationId;
+    var tbody = document.getElementById("weatherData");
+
+    var dateElement = document.getElementById("dailyInfoDateSelection");
+    const selectedDate = dateElement.value;
+    if(selectedDate != ""){
+        getDailyInfo();
+    }
+    
     buttonReset.addEventListener('click', function(event){
         event.preventDefault();
         loadStationDetails(stationId,name)});
@@ -196,11 +207,12 @@ function initPlageDate(dataList){
 
 
 }
-function intermediaryFunction(dataList){
+function intermediaryFunction(dataList,stationid=undefined){
 
     populateMeteoDataTable(dataList);
     populateMeteoStatTable(dataList);
     populateMeteoMonthTable(dataList);
+    if(stationid!=undefined)populateMeteoFeedTable(stationid);
 
 }
 //DataList is the provided MeteoStation from the click event found in the loadStationDetails
@@ -670,4 +682,114 @@ function populateMeteoStatTable(dataList,isCreation=false) {
 
         
     
+}
+
+function populateMeteoFeedTable(stationid){
+    fetch('/currentWeather?code='+stationid)
+  .then(response => response.json())
+  .then(data => {
+    if (data.success) {
+      console.log('Weather data received');
+      populateWithXML(data.data)
+    } else {
+      console.error('Failed to fetch weather data:', data.error);
+    }
+  })
+  .catch(error => {
+    console.error('Error fetching weather data:', error);
+  });
+}
+function populateWithXML(xmlData){
+    let tableDiv = document.querySelector('.feedData');
+    tableDiv.textContent = '';
+
+    const info = document.createElement("div");
+
+    // Parse the XML data
+    const parser = new DOMParser();
+    const xmlDoc = parser.parseFromString(xmlData, "text/xml");
+
+    // Create a new table
+    const table = document.createElement("table");
+    table.style.width = '100%';
+    table.setAttribute('border', '1');
+
+    // Add table header
+    let tr = table.insertRow(-1);
+    let headers = ["Prévision", "Sommaire"];
+    for(let i = 0; i < headers.length; i++) {
+        let th = document.createElement("th");
+        th.innerHTML = headers[i];
+        tr.appendChild(th);
+    }
+
+    // Initialize variables to store the extracted data
+    let currentCondition = '';
+    let lastUpdatedTime = '';
+    let meteoLink = '';
+    let veilleAlerte = '';
+
+    // Extract the link to the weather site (assuming the first link is the desired one)
+    const links = xmlDoc.getElementsByTagName("link");
+    if (links.length > 0) {
+        meteoLink = links[0].getAttribute("href");
+    }
+
+    // Extract entries for specific details
+    const entrie = xmlDoc.getElementsByTagName("entry");
+    for (let entry of entrie) {
+        const title = entry.getElementsByTagName("title")[0].textContent;
+        const updated = entry.getElementsByTagName("updated")[0].textContent;
+        const category = entry.getElementsByTagName("category")[0].getAttribute("term");
+        
+        // Check for current conditions
+        if (title.includes("Conditions actuelles")) {
+            currentCondition = title + " - " + entry.getElementsByTagName("summary")[0].textContent;
+            lastUpdatedTime = updated;
+        }
+        
+        // Check for current watches or warnings
+        if (category === "Veilles et avertissements") {
+            veilleAlerte = title;
+        }
+    }
+
+    // Display the extracted data
+    
+    info.innerHTML = `
+    <p><strong>Meteo Site:</strong> <a href="${meteoLink}">${meteoLink}</a></p>
+    <p><strong>Last updated:</strong> ${lastUpdatedTime}</p>
+    <p><strong>Current Watches or Warnings:</strong> ${veilleAlerte}</p>
+    <p><strong>Conditions actuelles:</strong> ${currentCondition}</p>
+    `;
+    // Iterate through each <entry> in the XML
+    const entries = xmlDoc.getElementsByTagName("entry");
+    for (let entry of entries) {
+        const categories = entry.getElementsByTagName("category");
+        let isForecastCategory = false;
+
+        // Check if any of the categories is "Prévisions météo"
+        for (let category of categories) {
+            if (category.getAttribute("term") === "Prévisions météo") {
+                isForecastCategory = true;
+                break; // Stop checking categories once "Prévisions météo" is found
+            }
+        }
+        if (!isForecastCategory) continue;
+
+        // The rest of the code remains unchanged, it only executes if the entry has the "Prévisions météo" category
+        let row = table.insertRow(-1);
+        let title = entry.getElementsByTagName("title")[0].textContent;
+        let summary = entry.getElementsByTagName("summary")[0].textContent;
+
+        // Insert new cells (<td>) at the 1st and 2nd position of the "new" <tr> element
+        let cell1 = row.insertCell(0);
+        let cell2 = row.insertCell(1);
+
+        // Add some text to the new cells
+        cell1.innerHTML = title;
+        cell2.innerHTML = summary;
+    }
+    tableDiv.appendChild(info);
+    tableDiv.appendChild(table);
 }

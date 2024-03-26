@@ -11,8 +11,8 @@
    }
 
    //Regarder le résultat de ceci dans un navigateur pour voir le layout.
-   console.log(stationInventoryArray);
-   console.log(stations);
+   //console.log(stationInventoryArray);
+   //console.log(stations);
    
    //Les variables qui sont misent global pour les utiliser dans d'autres fichier javasccript
    window.stationInventoryArray = stationInventoryArray;

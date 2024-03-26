@@ -27,6 +27,7 @@ header {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    height:140px;
 }
 
 header, footer {
@@ -223,6 +224,12 @@ header, footer {
 .stats{
     overflow: scroll;
 }
+.dailyInfo{
+    overflow:scroll;
+}
+.feedData{
+    overflow:scroll;
+}
 .meteoDataStatGlob th {
     border: 2px solid;
     white-space: nowrap;
@@ -236,9 +243,24 @@ header, footer {
 
 }
 
-.infoHolder[data-type-area="Data"] #StatsView, .infoHolder[data-type-area="Stats"] #DataView {
+.infoHolder:not([data-type-area="Stats"]) #StatsView, .infoHolder:not([data-type-area="Data"]) #DataView,.infoHolder:not([data-type-area="Info"]) #InfoView, .infoHolder:not([data-type-area="Feed"]) #FeedView{
 
     display: none;
+
+}
+
+
+
+/*Informations journalières*/
+
+#StationDateSelectionForm.StationDateSelectionFormInvisible{
+
+    display:none;
+
+}
+#pageDate.StationDateSelectionFormInvisible{
+
+    display:none;
 
 }
 
@@ -250,6 +272,7 @@ footer {
     left: 0;
     display: flex;
     width: 100vw;
+    height:130px;
     justify-content: center;
     align-items: center;
     padding: 20px 30px;
